@@ -9,5 +9,5 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   get "/organizations", to: "organizations#index"
-  
+  get "/organizations/:id", to: "organizations#show"
 end

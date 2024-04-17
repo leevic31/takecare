@@ -3,7 +3,9 @@
 <ul>
     <% @organizations.each do |organization| %>
         <li>
-            <%= organization.name %>
+            <a href="/organizations/<%= organization.id %>">
+                <%= organization.name %>
+            </a>
         </li>    
     <% end %>
 </ul>
