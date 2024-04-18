@@ -1,27 +1,34 @@
 import './App.css';
-import axios from "axios";
-import Organizations from './components/Organizations';
-import { useEffect, useState } from 'react';
+import Home from "./components/Home"
+import Organizations, { organizationsLoader } from './components/Organizations';
+import {
+  createBrowserRouter,
+  Route,
+  createRoutesFromElements,
+  RouterProvider,
+} from "react-router-dom";
 
 function App() {
-  const [organizations, setOrganizations] = useState([])
-  const url = "http://localhost:3000/organizations"
-  
-  const getOrganizations = () => {
-    axios.get(url).then(response => {
-      setOrganizations(Object.entries(response.data))
-    })
-  }
-  
-  useEffect(() => {
-    getOrganizations()
-  }, [])
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route 
+        path="/" 
+        element={<Home />}
+      >
+        <Route 
+          path="/organizations" 
+          element={<Organizations/>} 
+          loader={organizationsLoader}
+        />
+      </Route> 
+    )
+  )
 
   return (
     <>
     <div className="App">
-      <h1>Hello</h1>
-      <Organizations organizations={organizations} />
+      <h1>Welcome to Takecare</h1>
+      <RouterProvider router={router} />
     </div>
     </>
   );
