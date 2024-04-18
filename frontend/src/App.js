@@ -1,5 +1,6 @@
 import './App.css';
 import Home from "./components/Home"
+import Organization, { organizationLoader } from './components/Organization';
 import Organizations, { organizationsLoader } from './components/Organizations';
 import {
   createBrowserRouter,
@@ -19,6 +20,11 @@ function App() {
           path="/organizations" 
           element={<Organizations/>} 
           loader={organizationsLoader}
+        />
+        <Route 
+          path="/organizations/:id"
+          element={<Organization/>}
+          loader={organizationLoader}
         />
       </Route> 
     )

@@ -2,13 +2,13 @@ import { useLoaderData } from "react-router-dom";
 import axios from 'axios';
 
 export default function Organizations() {
-    const orgs = useLoaderData()
+    const organizations = useLoaderData()
 
     return (
         <>
             <div>
-                {orgs.map(org => (
-                    <p>{org[1].name}</p>
+                {organizations.map(organization => (
+                    <p>{organization[1].name}</p>
                 ))}
             </div>
         </>
@@ -20,6 +20,6 @@ export const organizationsLoader = async () => {
     const res = axios.get(url).then(response => {
         return Object.entries(response.data)
     })
-    
+
     return res
 }
