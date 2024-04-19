@@ -1,14 +1,16 @@
-import './App.css';
-import CreateOrganization, { createOrganizationAction } from './components/CreateOrganization';
-import Home from "./components/Home"
-import Organization, { organizationLoader } from './components/Organization';
-import Organizations, { organizationsLoader } from './components/Organizations';
 import {
   createBrowserRouter,
   Route,
   createRoutesFromElements,
   RouterProvider,
 } from "react-router-dom";
+import './App.css';
+import Home from "./components/Home"
+import CreateOrganization, { createOrganizationAction } from './components/CreateOrganization';
+import Organization, { organizationLoader } from './components/Organization';
+import Organizations, { organizationsLoader } from './components/Organizations';
+import Services, { servicesLoader } from './components/Services';
+import CreateService, { createServiceAction } from "./components/CreateService";
 
 function App() {
   const router = createBrowserRouter(
@@ -31,6 +33,16 @@ function App() {
           path="/organizations/create"
           element={<CreateOrganization/>}
           action={createOrganizationAction}
+        />
+        <Route 
+          path="/services"
+          element={<Services/>}
+          action={servicesLoader}
+        />
+        <Route 
+          path="/services/create"
+          element={<CreateService/>}
+          action={createServiceAction}
         />
       </Route> 
     )
