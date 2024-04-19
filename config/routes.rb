@@ -10,4 +10,5 @@ Rails.application.routes.draw do
 
   get "/organizations", to: "organizations#index"
   get "/organizations/:id", to: "organizations#show"
+  post "/organizations", to: "organizations#create"
 end
