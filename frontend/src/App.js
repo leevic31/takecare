@@ -1,4 +1,5 @@
 import './App.css';
+import CreateOrganization, { createOrganizationAction } from './components/CreateOrganization';
 import Home from "./components/Home"
 import Organization, { organizationLoader } from './components/Organization';
 import Organizations, { organizationsLoader } from './components/Organizations';
@@ -25,6 +26,11 @@ function App() {
           path="/organizations/:id"
           element={<Organization/>}
           loader={organizationLoader}
+        />
+        <Route 
+          path="/organizations/create"
+          element={<CreateOrganization/>}
+          action={createOrganizationAction}
         />
       </Route> 
     )

@@ -1,4 +1,7 @@
 class OrganizationsController < ApplicationController
+  # TODO figure out the right way to avoid this
+  skip_before_action :verify_authenticity_token, only: [:create]
+
   def index
     @organizations = Organization.all
     render json: @organizations
