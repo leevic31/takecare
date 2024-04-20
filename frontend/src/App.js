@@ -2,7 +2,7 @@ import {
   createBrowserRouter,
   Route,
   createRoutesFromElements,
-  RouterProvider,
+  RouterProvider
 } from "react-router-dom";
 import './App.css';
 import Home from "./components/Home"
@@ -51,7 +51,6 @@ function App() {
   return (
     <>
     <div className="App">
-      <h1>Welcome to Takecare</h1>
       <RouterProvider router={router} />
     </div>
     </>

@@ -1,11 +1,13 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, Link } from "react-router-dom";
 
 export default function Home() {
   return (
-    <>
-        <main>
-            <Outlet />
-        </main>
+    <>      
+      <Link to="/organizations">Welcome to Takecare</Link>
+
+      <main>
+          <Outlet />
+      </main>
     </>
   )
 }

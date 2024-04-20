@@ -7,7 +7,6 @@ export default function Organization() {
     return (
         <>
             <h1>{organization[1][1]}</h1>
-
         </>
     )
 }

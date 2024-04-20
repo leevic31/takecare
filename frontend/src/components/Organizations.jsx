@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, Link } from "react-router-dom";
 import axios from 'axios';
 
 export default function Organizations() {
@@ -8,7 +8,9 @@ export default function Organizations() {
         <>
             <div>
                 {organizations.map(organization => (
-                    <p>{organization[1].name}</p>
+                    <Link to={`/organizations/${organization[1]['id']}`} key={organization[1]['id']}>
+                        <p>{organization[1].name}</p>
+                    </Link>
                 ))}
             </div>
         </>
