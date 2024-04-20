@@ -8,15 +8,11 @@ class ServicesController < ApplicationController
   end
 
   def create
-    # type = service_params[:service].to_sym
-    # duration = service_params[:duration].to_int
-    # price = service_params[:price].to_int
-
     @service = Service.new(service_params)
     @service.save
   end
 
   def service_params
-    params.require(:service).permit(:type, :duration, :price)
+    params.require(:service).permit(:service_type, :duration, :price)
   end
 end

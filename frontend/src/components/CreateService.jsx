@@ -12,7 +12,7 @@ export default function CreateService() {
             <Form method="post" action="/services/create">
                 <label>
                     <span>Type</span>
-                    <select name="service">
+                    <select name="service_type">
                         <option>Select Service</option>
                         <option value="physiotherapy">Physiotherapy</option>
                         <option value="acupunture">Acupuncture</option>
@@ -38,15 +38,15 @@ export default function CreateService() {
 export const createServiceAction = async ({request}) => {
     const data = await request.formData()
     const submission = {
-        type: data.get('service'),
+        service_type: data.get('service_type'),
         duration: data.get('duration'),
         price: data.get('price')
     }
-    console.log(submission)
+
     const url = "http://localhost:3000/services"
 
     axios.post(url, {
-        service: submission.service,
+        service_type: submission.service_type,
         duration: submission.duration,
         price: submission.price
     }).then(response => {
