@@ -1,27 +1,31 @@
 import { Form, redirect, useActionData } from "react-router-dom"
 import axios from 'axios'
 
-export default function CreateService() {
+export default function CreateService( { id } ) {
     const data = useActionData()
-
+ 
     return (
         <>
             <div>Create Service</div>
 
             {/* maybe use react-select? https://react-select.com/home */}
-            <Form method="post" action="/services/create">
+            <Form method="post" action="/organizations/:id/services/create">
+                <input type="hidden" name="id" value={id}></input>
                 <label>
                     <span>Type</span>
                     <select name="service_type">
-                        <option>Select Service</option>
                         <option value="physiotherapy">Physiotherapy</option>
-                        <option value="acupunture">Acupuncture</option>
+                        <option value="acupuncture">Acupuncture</option>
                         <option value="massage_therapy">Massage Therapy</option>
                     </select>
                 </label>
                 <label>
                     <span>Duration</span>
-                    <input type="text" name="duration" />
+                    <select name="duration">
+                        <option value="30">30 minutes</option>
+                        <option value="60">60 minutes</option>
+                        <option value="90">90 minutes</option>
+                    </select>
                 </label>
                 <label>
                     <span>Price</span>
@@ -43,7 +47,7 @@ export const createServiceAction = async ({request}) => {
         price: data.get('price')
     }
 
-    const url = "http://localhost:3000/services"
+    const url = `http://localhost:3000/organizations/${data.get('id')}/services`
 
     axios.post(url, {
         service_type: submission.service_type,
@@ -53,5 +57,5 @@ export const createServiceAction = async ({request}) => {
         console.log(response)
     })
 
-    return redirect('/services')
+    return redirect(`/organizations/${data.get('id')}`)
 }

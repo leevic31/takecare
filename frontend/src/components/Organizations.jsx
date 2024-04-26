@@ -1,4 +1,4 @@
-import { useLoaderData, Link } from "react-router-dom";
+import { useLoaderData, Link, Outlet } from "react-router-dom";
 import axios from 'axios';
 
 export default function Organizations() {
@@ -13,6 +13,8 @@ export default function Organizations() {
                     </Link>
                 ))}
             </div>
+
+            <Outlet />
         </>
     )
 }

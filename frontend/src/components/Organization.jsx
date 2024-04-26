@@ -1,12 +1,26 @@
-import { useLoaderData } from "react-router-dom"
+import { Outlet, useLoaderData, Link } from "react-router-dom"
 import axios from 'axios';
+import CreateService from "./CreateService";
 
 export default function Organization() {
     const organization = useLoaderData()
 
     return (
-        <>
-            <h1>{organization[1][1]}</h1>
+        <>  
+            <div className= "grid grid-cols-2 gap-4">
+                <div>
+                    <h1>{organization[1][1]}</h1>
+                </div>
+
+            </div>
+
+            {/* <Link to={`/organizations/${organization[0][1]}/services/create`}>
+                <p>Add a Service</p>
+            </Link> */}
+
+            <CreateService id={organization[0][1]} />
+
+            {/* <Outlet /> */}
         </>
     )
 }

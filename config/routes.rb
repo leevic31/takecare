@@ -8,11 +8,13 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
-  get "/organizations", to: "organizations#index"
-  get "/organizations/:id", to: "organizations#show"
-  post "/organizations", to: "organizations#create"
+  # get "/organizations", to: "organizations#index"
+  # get "/organizations/:id", to: "organizations#show"
+  # post "/organizations", to: "organizations#create"
+
+  resources :organizations do
+    resources :services
+  end
 
   resources :staff_members
-
-  resources :services
 end

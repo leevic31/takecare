@@ -23,27 +23,31 @@ function App() {
           path="/organizations" 
           element={<Organizations/>} 
           loader={organizationsLoader}
-        />
-        <Route 
-          path="/organizations/:id"
-          element={<Organization/>}
-          loader={organizationLoader}
-        />
+        >
+          <Route 
+            path=":id"
+            element={<Organization />}
+            loader={organizationLoader}
+          >
+            <Route 
+              path="services/create"
+              element={<CreateService />}
+              action={createServiceAction}
+            />
+          </Route>
+        </Route>
+        
+
         <Route 
           path="/organizations/create"
           element={<CreateOrganization/>}
           action={createOrganizationAction}
         />
-        <Route 
+        {/* <Route 
           path="/services"
           element={<Services/>}
           action={servicesLoader}
-        />
-        <Route 
-          path="/services/create"
-          element={<CreateService/>}
-          action={createServiceAction}
-        />
+        /> */}
       </Route> 
     )
   )
