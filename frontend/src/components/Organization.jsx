@@ -1,4 +1,4 @@
-import { Outlet, useLoaderData, Link } from "react-router-dom"
+import { Outlet, useLoaderData } from "react-router-dom"
 import axios from 'axios';
 import CreateService from "./CreateService";
 
@@ -11,16 +11,11 @@ export default function Organization() {
                 <div>
                     <h1>{organization[1][1]}</h1>
                 </div>
-
             </div>
-
-            {/* <Link to={`/organizations/${organization[0][1]}/services/create`}>
-                <p>Add a Service</p>
-            </Link> */}
 
             <CreateService id={organization[0][1]} />
 
-            {/* <Outlet /> */}
+            <Outlet />
         </>
     )
 }

@@ -6,21 +6,19 @@ export default function Services() {
 
     return (
         <>
-            {/* <div>
+            <div>
                 {services.map(service => (
                     <div>
-                        <p>{service[1].type}</p>
-                        <p>{service[1].duration}</p>
-                        <p>{service[1].price}</p>
+                        <p>{service[1].service_type}</p>
                     </div>
                 ))}
-            </div> */}
+            </div>
         </>    
     )
 }
 
 export const servicesLoader = async () => {
-    const url = "http://localhost:3000/services"
+    const url = "http://localhost:3000/organizations/1/services"
     const res = axios.get(url).then(response => {
         return Object.entries(response.data)
     })
