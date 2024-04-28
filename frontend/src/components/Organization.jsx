@@ -1,6 +1,7 @@
 import { Outlet, useLoaderData } from "react-router-dom"
 import axios from 'axios';
 import CreateService from "./CreateService";
+import { Theme } from '@radix-ui/themes';
 
 export default function Organization() {
     const organization = useLoaderData()
@@ -13,8 +14,10 @@ export default function Organization() {
                 </div>
             </div>
 
-            <CreateService id={organization[0][1]} />
-
+            <Theme>
+                <CreateService id={organization[0][1]} />
+            </Theme>
+                
             <Outlet />
         </>
     )
@@ -26,6 +29,6 @@ export const organizationLoader = async ({ params }) => {
     const res = axios.get(url).then(response => {
         return Object.entries(response.data)
     })
-
+    
     return res
 }

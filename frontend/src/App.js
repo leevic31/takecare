@@ -12,6 +12,8 @@ import Organizations, { organizationsLoader } from './components/Organizations';
 import Services, { servicesLoader } from './components/Services';
 import CreateService, { createServiceAction } from "./components/CreateService";
 
+import '@radix-ui/themes/styles.css';
+
 function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
