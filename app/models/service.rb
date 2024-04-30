@@ -1,4 +1,4 @@
 class Service < ApplicationRecord
     belongs_to :organization
-    enum :service_type, [:physiotherapy, :acupuncture, :massage_therapy]
+    validates :service_type, presence: true
 end
