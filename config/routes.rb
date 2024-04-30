@@ -12,5 +12,7 @@ Rails.application.routes.draw do
     resources :services
   end
 
+  resources :sessions
+
   resources :staff_members
 end
