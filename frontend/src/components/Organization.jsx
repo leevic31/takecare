@@ -3,12 +3,13 @@ import axios from 'axios';
 import CreateService from "./CreateService";
 import { Theme } from '@radix-ui/themes';
 
+
 export default function Organization() {
     const organization = useLoaderData()
 
     return (
         <>  
-            <div className= "grid grid-cols-2 gap-4">
+            {/* <div className= "grid grid-cols-2 gap-4">
                 <div>
                     <h1>{organization[1][1]}</h1>
                 </div>
@@ -16,7 +17,7 @@ export default function Organization() {
 
             <Theme>
                 <CreateService id={organization[0][1]} />
-            </Theme>
+            </Theme> */}
                 
             <Outlet />
         </>

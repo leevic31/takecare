@@ -5,14 +5,14 @@ import { Button, ChevronDownIcon, Grid, Box } from '@radix-ui/themes';
 import * as Select from '@radix-ui/react-select';
 import classnames from 'classnames';
 import * as Label from '@radix-ui/react-label';
+import * as Dialog from '@radix-ui/react-dialog';
+import { Cross2Icon } from '@radix-ui/react-icons';
 
 export default function CreateService( { id } ) {
     const data = useActionData()
- 
+
     return (
         <>
-            <div className='text-violet11'>Create Service</div>
-
             <Form method="post" action="/organizations/:id/services/create">
                 <input type="hidden" name="id" value={id}></input>
                 <Grid columns="1" rows="4" gapY="3">
