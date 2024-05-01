@@ -17,7 +17,7 @@ class ServicesController < ApplicationController
   private
 
   def service_params
-    params.require(:service).permit(:service_type, :duration, :price)
+    params.require(:service).permit(:service_type)
   end
 
   def get_organization

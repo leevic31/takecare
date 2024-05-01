@@ -1,6 +1,6 @@
 import { Outlet, useLoaderData } from "react-router-dom"
 import axios from 'axios';
-import CreateService from "./CreateService";
+import Services from "./Services";
 import { Theme } from '@radix-ui/themes';
 
 
@@ -18,6 +18,10 @@ export default function Organization() {
             <Theme>
                 <CreateService id={organization[0][1]} />
             </Theme> */}
+
+            <Theme>
+                <Services id={organization[0][1]} />
+            </Theme>
                 
             <Outlet />
         </>

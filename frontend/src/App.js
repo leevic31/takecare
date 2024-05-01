@@ -6,12 +6,9 @@ import {
 } from "react-router-dom";
 import './App.css';
 import Home from "./components/Home"
-import CreateOrganization, { createOrganizationAction } from './components/CreateOrganization';
 import Organization, { organizationLoader } from './components/Organization';
-import Organizations, { organizationsLoader } from './components/Organizations';
-import Services, { servicesLoader } from './components/Services';
-import CreateService, { createServiceAction } from "./components/CreateService";
-
+import Organizations from './components/Organizations';
+import Services from './components/Services';
 import '@radix-ui/themes/styles.css';
 
 function App() {
@@ -24,15 +21,8 @@ function App() {
         <Route 
           path="organizations" 
           element={<Organizations/>} 
-          // loader={organizationsLoader}
-        >
-          <Route 
-            path="/organizations/create"
-            element={<CreateOrganization/>}
-            action={createOrganizationAction}
-          />
-        </Route>
-        <Route 
+        />
+        <Route
           path="organizations/:id"
           element={<Organization />}
           loader={organizationLoader}
@@ -40,12 +30,6 @@ function App() {
           <Route 
             path="services"
             element={<Services/>}
-            loader={servicesLoader}
-          />
-          <Route 
-            path="services/create"
-            element={<CreateService />}
-            action={createServiceAction}
           />
         </Route>
       </Route>

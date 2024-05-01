@@ -1,4 +1,9 @@
 class SessionsController < ApplicationController
+  before_action :get_service
+  
+  # TODO figure out the right way to avoid this
+  skip_before_action :verify_authenticity_token, only: [:create]
+  
   def index
     @sessions = @service.sessions
     render json: @sessions
