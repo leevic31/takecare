@@ -2,6 +2,7 @@ import axios from 'axios';
 import * as Dialog from '@radix-ui/react-dialog';
 import { Cross2Icon } from '@radix-ui/react-icons';
 import { useState, useEffect } from "react";
+import { Table, Flex } from '@radix-ui/themes';
 
 export default function Services( { id }) {
     const [services, setServices] = useState([]);
@@ -76,14 +77,31 @@ export default function Services( { id }) {
                     </Dialog.Content>
                 </Dialog.Portal>
             </Dialog.Root>
-
+            {/* 
             <div>
                 {services.map(service => (
                     <div>
                         <p>{service[1].service_type}</p>
                     </div>
                 ))}
-            </div>
+            </div> */}
+
+            <Flex direction="column" maxWidth="150px">
+                <Table.Root variant='surface' size='1'>
+                    <Table.Header>
+                        <Table.Row>
+                        <Table.ColumnHeaderCell>Services</Table.ColumnHeaderCell>
+                        </Table.Row>
+                    </Table.Header>
+                    <Table.Body>
+                        {services.map(service => (
+                            <Table.Row>
+                                <Table.RowHeaderCell>{service[1].service_type}</Table.RowHeaderCell>
+                            </Table.Row>
+                        ))}
+                    </Table.Body>
+                </Table.Root>
+            </Flex>
         </>    
     )
 }
