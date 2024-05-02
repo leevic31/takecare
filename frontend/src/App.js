@@ -8,7 +8,6 @@ import './App.css';
 import Home from "./components/Home"
 import Organization, { organizationLoader } from './components/Organization';
 import Organizations from './components/Organizations';
-import Services from './components/Services';
 import '@radix-ui/themes/styles.css';
 
 function App() {
@@ -26,12 +25,7 @@ function App() {
           path="organizations/:id"
           element={<Organization />}
           loader={organizationLoader}
-        >
-          <Route 
-            path="services"
-            element={<Services/>}
-          />
-        </Route>
+        />
       </Route>
     )
   )

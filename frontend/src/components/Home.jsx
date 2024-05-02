@@ -1,13 +1,13 @@
 import { Outlet, Link } from "react-router-dom";
+import { Theme } from '@radix-ui/themes';
 
 export default function Home() {
   return (
     <>
-      <Link to="/organizations" className="text-3xl text-indigo-700 font-bold absolute top-0 left-0">Takecare</Link>
-
-      <main>
+        <Theme appearance="dark" grayColor="sage">
+          <Link to="/organizations" className="text-3xl text-indigo-700 font-bold absolute left-0 top-0">Takecare</Link>
           <Outlet />
-      </main>
+        </Theme>
     </>
   )
 }
