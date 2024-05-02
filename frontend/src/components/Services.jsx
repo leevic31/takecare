@@ -1,8 +1,9 @@
 import axios from 'axios';
 import * as Dialog from '@radix-ui/react-dialog';
-import { Cross2Icon, PlusCircledIcon  } from '@radix-ui/react-icons';
+import { Cross2Icon, PlusCircledIcon } from '@radix-ui/react-icons';
 import { useState, useEffect } from "react";
-import { Table, Flex, Text, Grid, Card, Inset, Box } from '@radix-ui/themes';
+import { Table, Flex, Text, Grid, Card, Box } from '@radix-ui/themes';
+import EditServiceForm from './EditServiceForm';
 
 export default function Services( { id }) {
     const [services, setServices] = useState([]);
@@ -11,7 +12,6 @@ export default function Services( { id }) {
 
     const getServices = () => {
         const url = `http://localhost:3000/organizations/${id}/services`
-    
         axios.get(url).then(response => {
             setServices(Object.entries(response.data));
         })
@@ -24,9 +24,7 @@ export default function Services( { id }) {
     const handleSubmit = async (e) => {
         // Prevent the default submit and page reload
         e.preventDefault();
-    
         const url = `http://localhost:3000/organizations/${id}/services`
-
         await axios.post(url, {service_type: serviceType}).then(response => {
             getServices();
         })
@@ -66,7 +64,6 @@ export default function Services( { id }) {
                                                             <Cross2Icon />
                                                         </button>
                                                     </Dialog.Close>
-
                                                     <fieldset className="mb-[10px] flex items-center gap-5">
                                                         <form onSubmit={handleSubmit}>
                                                             <label className="text-violet11 w-[90px] text-right text-[15px]" htmlFor="serviceType">Service Type</label>
@@ -92,7 +89,14 @@ export default function Services( { id }) {
                                 <Table.Body>
                                     {services.map(service => (
                                         <Table.Row>
-                                            <Table.Cell>{service[1].service_type}</Table.Cell>
+                                            <Table.Cell>
+                                                {service[1].service_type}
+                                                <EditServiceForm 
+                                                    service_id={service[1].id} 
+                                                    organization_id={service[1].organization_id}
+                                                    getServices={getServices}
+                                                />
+                                            </Table.Cell>
                                         </Table.Row>
                                     ))}
                                 </Table.Body>

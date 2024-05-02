@@ -1,7 +1,6 @@
 import { useLoaderData } from "react-router-dom"
 import axios from 'axios';
 import Services from "./Services";
-import { Theme } from '@radix-ui/themes';
 
 export default function Organization() {
     const organization = useLoaderData()
