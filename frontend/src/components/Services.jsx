@@ -103,9 +103,11 @@ export default function Services( { id }) {
                             </Table.Root>
                         </Box>
                         <Box>
-                            <Flex direction="column">
+                            <Flex direction="column" gap="3">
                                 {services.map(service => (
-                                    <Text size="5">{service[1].service_type}</Text>
+                                    <Card>
+                                        <Text size="5">{service[1].service_type}</Text>
+                                    </Card>
                                 ))}
                             </Flex>
                         </Box>
