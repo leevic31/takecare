@@ -25,8 +25,8 @@ export default function EditServiceForm( { organization_id, service_id, getServi
                     <Pencil1Icon/>
                 </button>
                 </Dialog.Trigger>
-                <Dialog.Content >
-                    <Dialog.Title >
+                <Dialog.Content>
+                    <Dialog.Title>
                         Update service
                     </Dialog.Title>
                     <form onSubmit={handleSubmit}>
