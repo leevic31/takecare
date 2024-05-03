@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Cross2Icon, PlusCircledIcon } from '@radix-ui/react-icons';
+import { PlusCircledIcon } from '@radix-ui/react-icons';
 import { useState, useEffect } from "react";
 import { Table, Flex, Text, Grid, Card, Box, Dialog, Button, TextField } from '@radix-ui/themes';
 import EditServiceForm from './EditServiceForm';
@@ -46,14 +46,10 @@ export default function Services( { id }) {
                                         Services
                                         <Dialog.Root open={open} onOpenChange={setOpen}>
                                             <Dialog.Trigger asChild>
-                                            <button className='absolute right-3'>
-                                                <PlusCircledIcon />
-                                            </button>
+                                            <button className='absolute right-3'><PlusCircledIcon/></button>
                                             </Dialog.Trigger>
                                                 <Dialog.Content >
-                                                    <Dialog.Title>
-                                                        Add service
-                                                    </Dialog.Title>
+                                                    <Dialog.Title>Add service</Dialog.Title>
                                                         <form onSubmit={handleSubmit}>
                                                             <label htmlFor="serviceType">
                                                                 <Text>Service Type</Text>
