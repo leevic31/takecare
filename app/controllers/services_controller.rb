@@ -2,7 +2,7 @@ class ServicesController < ApplicationController
   before_action :get_organization
 
   # TODO figure out the right way to avoid this
-  skip_before_action :verify_authenticity_token, only: [:create, :update]
+  skip_before_action :verify_authenticity_token, only: [:create, :update, :destroy]
 
   def index
     @services = @organization.services
@@ -17,6 +17,11 @@ class ServicesController < ApplicationController
   def update
     @service = @organization.services.find(params[:id])
     @service.update!(service_params)
+  end
+
+  def destroy
+    @service = @organization.services.find(params[:id])
+    @service.destroy!
   end
 
   private

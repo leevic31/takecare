@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Table, Flex, Text, Grid, Card, Box, Dialog, Button, TextField } from '@radix-ui/themes';
 import EditServiceForm from './EditServiceForm';
 import CreateSessionForm from './CreateSessionForm';
+import DeleteService from './DeleteService';
 
 export default function Services( { id }) {
     const [services, setServices] = useState([]);
@@ -77,12 +78,27 @@ export default function Services( { id }) {
                                     {services.map(service => (
                                         <Table.Row>
                                             <Table.Cell>
-                                                {service[1].service_type}
-                                                <EditServiceForm 
-                                                    service_id={service[1].id} 
-                                                    organization_id={service[1].organization_id}
-                                                    getServices={getServices}
-                                                />
+                                                <Grid columns="2">
+                                                    <Box pt="3">
+                                                        <Text>
+                                                            {service[1].service_type}
+                                                        </Text>
+                                                    </Box>
+                                                    <Box>
+                                                        <Flex direction="column" align="end" gap="2">
+                                                                <EditServiceForm 
+                                                                    service_id={service[1].id} 
+                                                                    organization_id={service[1].organization_id}
+                                                                    getServices={getServices}
+                                                                />
+                                                                <DeleteService
+                                                                    service_id={service[1].id} 
+                                                                    organization_id={service[1].organization_id}
+                                                                    getServices={getServices}
+                                                                />
+                                                        </Flex>
+                                                    </Box>
+                                                </Grid>
                                             </Table.Cell>
                                         </Table.Row>
                                     ))}
