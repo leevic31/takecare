@@ -9,10 +9,11 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   resources :organizations do
-    resources :services
+    resources :services do
+      resources :sessions
+    end
   end
 
-  resources :sessions
 
   resources :staff_members
 end
