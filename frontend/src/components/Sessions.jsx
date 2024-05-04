@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react"
 import axios from 'axios';
-import { Dialog, Button, Flex, Text, TextField, TextArea, Select } from "@radix-ui/themes";
+import { Dialog, Button, Flex, Text, TextField, TextArea, Select, Card } from "@radix-ui/themes";
 import { PlusCircledIcon } from '@radix-ui/react-icons';
 
-export default function CreateSessionForm( { organization_id, service_id }) {
+export default function Sessions({ organization_id, service_id }) {
     const [sessions, setSessions] = useState([]);
     const [open, setOpen] = useState(false);
     const [title, setTitle] = useState();
     const [description, setDescription] = useState();
     const [duration, setDuration] = useState();
     const [price, setPrice] = useState();
+
 
     const getSessions = () => {
         const url = `http://localhost:3000/organizations/${organization_id}/services/${service_id}/sessions`
@@ -36,7 +37,7 @@ export default function CreateSessionForm( { organization_id, service_id }) {
         <>
             <Dialog.Root open={open} onOpenChange={setOpen}>
                 <Dialog.Trigger asChild>
-                <button className='absolute right-3'>
+                <button>
                     <PlusCircledIcon />
                 </button>
                 </Dialog.Trigger>
@@ -96,6 +97,21 @@ export default function CreateSessionForm( { organization_id, service_id }) {
                             </form>
                     </Dialog.Content>
             </Dialog.Root>
+
+            <Flex direction="column" gap="3">
+                {sessions.map(session => (
+                    <Card>
+                        <Flex direction="column">
+                            <Text size="3">
+                                {session[1].title}
+                            </Text>
+                            <Text size="1">
+                                {session[1].description}
+                            </Text>
+                        </Flex>
+                    </Card>
+                ))}
+            </Flex>
         </>
     )
 }

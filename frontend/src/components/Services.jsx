@@ -1,10 +1,11 @@
 import axios from 'axios';
-import { PlusCircledIcon } from '@radix-ui/react-icons';
 import { useState, useEffect } from "react";
-import { Table, Flex, Text, Grid, Card, Box, Dialog, Button, TextField } from '@radix-ui/themes';
+import { PlusCircledIcon } from '@radix-ui/react-icons';
+import { Table, Flex, Text, Grid, Card, Box, Dialog, Button, TextField, Separator } from '@radix-ui/themes';
 import EditServiceForm from './EditServiceForm';
 import CreateSessionForm from './CreateSessionForm';
 import DeleteService from './DeleteService';
+import Sessions from './Sessions';
 
 export default function Services( { id }) {
     const [services, setServices] = useState([]);
@@ -86,16 +87,16 @@ export default function Services( { id }) {
                                                     </Box>
                                                     <Box>
                                                         <Flex direction="column" align="end" gap="2">
-                                                                <EditServiceForm 
-                                                                    service_id={service[1].id} 
-                                                                    organization_id={service[1].organization_id}
-                                                                    getServices={getServices}
-                                                                />
-                                                                <DeleteService
-                                                                    service_id={service[1].id} 
-                                                                    organization_id={service[1].organization_id}
-                                                                    getServices={getServices}
-                                                                />
+                                                            <EditServiceForm 
+                                                                service_id={service[1].id} 
+                                                                organization_id={service[1].organization_id}
+                                                                getServices={getServices}
+                                                            />
+                                                            <DeleteService
+                                                                service_id={service[1].id} 
+                                                                organization_id={service[1].organization_id}
+                                                                getServices={getServices}
+                                                            />  
                                                         </Flex>
                                                     </Box>
                                                 </Grid>
@@ -108,13 +109,16 @@ export default function Services( { id }) {
                         <Box>
                             <Flex direction="column" gap="3">
                                 {services.map(service => (
-                                    <Card>
-                                        <Text size="5">{service[1].service_type}</Text>
-                                        <CreateSessionForm 
+                                    <Box>
+                                        <Text size="5">
+                                            {service[1].service_type}
+                                        </Text>
+                                        <Sessions
                                             organization_id={service[1].organization_id} 
-                                            service_id={service[1].id} 
+                                            service_id={service[1].id}
                                         />
-                                    </Card>
+                                        <Separator my="3" size="4"/>              
+                                    </Box>
                                 ))}
                             </Flex>
                         </Box>
