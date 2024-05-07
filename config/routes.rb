@@ -13,8 +13,7 @@ Rails.application.routes.draw do
       resources :sessions
     end
   end
-  resources :days do
-    resources :bookings
-  end
+  
+  resources :bookings
   resources :staff_members
 end
