@@ -10,19 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_07_020615) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_07_171043) do
   create_table "bookings", force: :cascade do |t|
     t.boolean "available", default: true
     t.datetime "start_time"
     t.datetime "end_time"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "day_id", null: false
-    t.index ["day_id"], name: "index_bookings_on_day_id"
-  end
-
-  create_table "days", force: :cascade do |t|
-    t.date "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -52,7 +44,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_07_020615) do
     t.index ["service_id"], name: "index_sessions_on_service_id"
   end
 
-  add_foreign_key "bookings", "days"
   add_foreign_key "services", "organizations"
   add_foreign_key "sessions", "services"
 end
