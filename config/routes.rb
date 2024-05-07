@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'days/index'
   get 'bookings/index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -14,7 +15,7 @@ Rails.application.routes.draw do
       resources :sessions
     end
   end
-
+  resources :days
   resources :bookings
   resources :staff_members
 end
