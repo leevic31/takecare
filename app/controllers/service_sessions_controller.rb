@@ -5,19 +5,19 @@ class ServiceSessionsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:create]
   
   def index
-    @sessions = @service.sessions
-    render json: @sessions
+    @service_sessions = @service.service_sessions
+    render json: @service_sessions
   end
 
   def create
-    @session = @service.sessions.build(session_params)
+    @session = @service.service_sessions.build(session_params)
     @session.save
   end
 
   private 
 
   def session_params
-    params.require(:session).permit(:title, :description, :duration, :price)
+    params.require(:service_session).permit(:title, :description, :duration, :price)
   end
 
   def get_service
