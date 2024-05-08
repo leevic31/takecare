@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   resources :organizations do
     resources :services do
-      resources :sessions
+      resources :service_sessions
     end
   end
   

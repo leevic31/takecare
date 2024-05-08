@@ -1,4 +1,4 @@
-class SessionsController < ApplicationController
+class ServiceSessionsController < ApplicationController
   before_action :get_service
   
   # TODO figure out the right way to avoid this

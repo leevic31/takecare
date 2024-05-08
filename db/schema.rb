@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_07_182645) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_08_000118) do
   create_table "bookings", force: :cascade do |t|
     t.boolean "available", default: true
     t.time "start_time"
@@ -26,15 +26,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_07_182645) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "services", force: :cascade do |t|
-    t.string "service_type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "organization_id", null: false
-    t.index ["organization_id"], name: "index_services_on_organization_id"
-  end
-
-  create_table "sessions", force: :cascade do |t|
+  create_table "service_sessions", force: :cascade do |t|
     t.string "title"
     t.text "description"
     t.integer "duration"
@@ -45,6 +37,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_07_182645) do
     t.index ["service_id"], name: "index_sessions_on_service_id"
   end
 
+  create_table "services", force: :cascade do |t|
+    t.string "service_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "organization_id", null: false
+    t.index ["organization_id"], name: "index_services_on_organization_id"
+  end
+
+  add_foreign_key "service_sessions", "services"
   add_foreign_key "services", "organizations"
-  add_foreign_key "sessions", "services"
 end
