@@ -2,11 +2,10 @@ require "test_helper"
 
 class BookingsControllerTest < ActionDispatch::IntegrationTest
   include Rails.application.routes.url_helpers
-
-  fixtures :bookings
   
   setup do
     @user, @token = sign_in_as(users(:lazaro_nixon))
+    @booking = bookings(:one)
   end
 
   def default_headers
@@ -27,28 +26,31 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
       }, 
       headers: default_headers
     end
+    
     assert_response 204
   end
 
   test "should update booking" do
-    booking = bookings(:one)
     updated_availability = true
-    patch booking_url(booking), 
+
+    patch booking_url(@booking), 
       params: { 
         booking: {
           available: updated_availability 
         }
       }, 
       headers: default_headers
-    booking.reload
-    assert_equal updated_availability, booking.available
+
+    @booking.reload
+
+    assert_equal updated_availability, @booking.available
   end
 
   test "should delete booking" do
-    booking = bookings(:one)
     assert_difference("Booking.count", -1) do
-      delete booking_url(booking), headers: default_headers
+      delete booking_url(@booking), headers: default_headers
     end
+
     assert_response 204
   end
 end
