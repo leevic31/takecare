@@ -1,0 +1,13 @@
+one:
+  title: MyString
+  description: MyText
+  duration: 1
+  price: 9.99
+  service: one
+
+two:
+  title: MyString
+  description: MyText
+  duration: 1
+  price: 9.99
+  service: one
