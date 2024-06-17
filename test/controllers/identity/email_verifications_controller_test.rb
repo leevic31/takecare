@@ -2,23 +2,27 @@ require "test_helper"
 
 class Identity::EmailVerificationsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @user = sign_in_as(users(:lazaro_nixon))
+    @user, @token = sign_in_as(users(:lazaro_nixon))
     @user.update! verified: false
+  end
+
+  def default_headers
+    { "Authorization" => "Bearer #{@token}" }
   end
 
   test "should send a verification email" do
     assert_enqueued_email_with UserMailer, :email_verification, params: { user: @user } do
-      post identity_email_verification_url
+      post identity_email_verification_url, headers: default_headers
     end
 
-    assert_redirected_to root_url
+    assert_response :no_content
   end
 
   test "should verify email" do
     sid = @user.generate_token_for(:email_verification)
 
-    get identity_email_verification_url(sid: sid, email: @user.email)
-    assert_redirected_to root_url
+    get identity_email_verification_url, params: { sid: sid }, headers: default_headers
+    assert_response :no_content
   end
 
   test "should not verify email with expired token" do
@@ -26,9 +30,9 @@ class Identity::EmailVerificationsControllerTest < ActionDispatch::IntegrationTe
 
     travel 3.days
 
-    get identity_email_verification_url(sid: sid, email: @user.email)
+    get identity_email_verification_url, params: { sid: sid }, headers: default_headers
 
-    assert_redirected_to edit_identity_email_url
-    assert_equal "That email verification link is invalid", flash[:alert]
+    assert_response :bad_request
+    assert_equal "That email verification link is invalid", response.parsed_body["error"]
   end
 end

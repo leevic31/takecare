@@ -1,14 +1,11 @@
 class Identity::EmailsController < ApplicationController
   before_action :set_user
 
-  def edit
-  end
-
   def update
     if @user.update(user_params)
-      redirect_to_root
+      render_show
     else
-      render :edit, status: :unprocessable_entity
+      render json: @user.errors, status: :unprocessable_entity
     end
   end
 
@@ -21,12 +18,11 @@ class Identity::EmailsController < ApplicationController
       params.permit(:email, :password_challenge).with_defaults(password_challenge: "")
     end
 
-    def redirect_to_root
+    def render_show
       if @user.email_previously_changed?
-        resend_email_verification
-        redirect_to root_path, notice: "Your email has been changed"
+        resend_email_verification; render(json: @user)
       else
-        redirect_to root_path
+        render json: @user
       end
     end
 

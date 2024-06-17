@@ -1,14 +1,11 @@
 class PasswordsController < ApplicationController
   before_action :set_user
 
-  def edit
-  end
-
   def update
     if @user.update(user_params)
-      redirect_to root_path, notice: "Your password has been changed"
+      render json: @user
     else
-      render :edit, status: :unprocessable_entity
+      render json: @user.errors, status: :unprocessable_entity
     end
   end
 
