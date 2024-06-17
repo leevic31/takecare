@@ -1,4 +1,6 @@
 class BookingsController < ApplicationController
+  before_action :set_booking, only: [:update, :destroy]
+
   def index
     @bookings = Booking.all
     render json: @bookings
@@ -10,13 +12,20 @@ class BookingsController < ApplicationController
   end
 
   def update
-    @booking = @booking.find(params[:id])
-    @booking.update!(booking_params)
+    @booking.update(booking_params)
+  end
+
+  def destroy
+    @booking.destroy
   end
 
   private
 
   def booking_params
-    params.require(:booking).permit(:start_time, :end_time, :date)
+    params.require(:booking).permit(:start_time, :end_time, :date, :available)
+  end
+
+  def set_booking
+    @booking = Booking.find(params[:id])
   end
 end

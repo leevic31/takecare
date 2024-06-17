@@ -4,8 +4,9 @@ one:
   available: false
   start_time: 2024-05-04 13:45:12
   end_time: 2024-05-04 13:45:12
-
+  date: 2024-05-04
 two:
   available: false
   start_time: 2024-05-04 13:45:12
   end_time: 2024-05-04 13:45:12
+  date: 2024-05-04
