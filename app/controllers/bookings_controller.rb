@@ -8,11 +8,19 @@ class BookingsController < ApplicationController
 
   def create
     @booking = Booking.new(booking_params)
-    @booking.save
+    if @booking.save
+      render json: @booking, status: :created
+    else
+      render json: @booking.errors, status: :unprocessable_entity
+    end
   end
 
   def update
-    @booking.update(booking_params)
+    if @booking.update(booking_params)
+      render json: @booking
+    else
+      render json: @booking.errors, status: :unprocessable_entity
+    end
   end
 
   def destroy
