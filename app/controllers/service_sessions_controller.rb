@@ -11,12 +11,20 @@ class ServiceSessionsController < ApplicationController
   end
 
   def create
-    @session = @service.service_sessions.build(service_session_params)
-    @session.save
+    @service_session = @service.service_sessions.build(service_session_params)
+    if @service_session.save
+      render json: @service_session, status: :created
+    else
+      render json: @service_session.errors, status: :unprocessable_entity
+    end
   end
 
   def update
-    @service_session.update(service_session_params)
+    if @service_session.update(service_session_params)
+      render json: @service_session
+    else
+      render json: @service_session.errors, status: :unprocessable_entity
+    end
   end
 
   def destroy

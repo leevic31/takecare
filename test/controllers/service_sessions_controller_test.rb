@@ -40,7 +40,27 @@ class ServiceSessionsControllerTest < ActionDispatch::IntegrationTest
       },
       headers: default_headers
     end
-    assert_response 204
+    assert_response :created
+  end
+
+  test "should not create service session with invalid data" do
+    invalid_service_session_params = {
+      description: "description",
+      duration: 1,
+      price: 9.99,
+      service: @service
+    }
+    assert_no_difference "ServiceSession.count" do
+      post organization_service_service_sessions_url(
+        service_id: @service,
+        organization_id: @service.organization
+      ),
+      params: {
+        service_session: invalid_service_session_params
+      },
+      headers: default_headers
+    end
+    assert_response :unprocessable_entity
   end
 
   test "should update service session" do
@@ -67,6 +87,18 @@ class ServiceSessionsControllerTest < ActionDispatch::IntegrationTest
     assert_equal updated_description, @service_session.description
     assert_equal updated_duration, @service_session.duration
     assert_equal updated_price, @service_session.price
+  end
+
+  test "should not update service session with invalid data" do
+    invalid_service_session_params = { title: nil }
+    patch organization_service_service_session_url(
+      id: @service_session.id, 
+      service_id: @service,
+      organization_id: @service.organization
+      ),
+      params: { service_session: invalid_service_session_params },
+      headers: default_headers
+    assert_response :unprocessable_entity
   end
 
   test "should delete service session" do
