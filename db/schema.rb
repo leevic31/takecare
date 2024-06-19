@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_18_142342) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_19_160850) do
   create_table "bookings", force: :cascade do |t|
     t.boolean "available", default: true
     t.time "start_time"
@@ -34,7 +34,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_18_142342) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "service_id", null: false
+    t.integer "staff_member_id", null: false
     t.index ["service_id"], name: "index_sessions_on_service_id"
+    t.index ["staff_member_id"], name: "index_service_sessions_on_staff_member_id"
   end
 
   create_table "services", force: :cascade do |t|
@@ -70,6 +72,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_18_142342) do
   end
 
   add_foreign_key "service_sessions", "services"
+  add_foreign_key "service_sessions", "staff_members"
   add_foreign_key "services", "organizations"
   add_foreign_key "sessions", "users"
 end

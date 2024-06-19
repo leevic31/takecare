@@ -5,8 +5,9 @@ class ServiceSessionsControllerTest < ActionDispatch::IntegrationTest
 
   setup do
     @user, @token = sign_in_as(users(:lazaro_nixon))
-    @service = services(:one)
     @service_session = service_sessions(:one)
+    @service = services(:one)
+    @staff_member = staff_members(:one)
   end
   
   def default_headers
@@ -35,11 +36,13 @@ class ServiceSessionsControllerTest < ActionDispatch::IntegrationTest
           description: "description",
           duration: 1,
           price: 9.99,
-          service: @service
+          service_id: @service.id,
+          staff_member_id: @staff_member.id
         },
-      },
+      }, 
       headers: default_headers
     end
+
     assert_response :created
   end
 
@@ -50,6 +53,7 @@ class ServiceSessionsControllerTest < ActionDispatch::IntegrationTest
       price: 9.99,
       service: @service
     }
+
     assert_no_difference "ServiceSession.count" do
       post organization_service_service_sessions_url(
         service_id: @service,
@@ -57,9 +61,10 @@ class ServiceSessionsControllerTest < ActionDispatch::IntegrationTest
       ),
       params: {
         service_session: invalid_service_session_params
-      },
+      }, 
       headers: default_headers
     end
+
     assert_response :unprocessable_entity
   end
 
@@ -68,6 +73,7 @@ class ServiceSessionsControllerTest < ActionDispatch::IntegrationTest
     updated_description = "new description"
     updated_duration = 2
     updated_price = 10.99
+
     patch organization_service_service_session_url(
       id: @service_session.id, 
       service_id: @service,
@@ -80,9 +86,11 @@ class ServiceSessionsControllerTest < ActionDispatch::IntegrationTest
           duration: updated_duration,
           price: updated_price
         }
-      },
+      }, 
       headers: default_headers
+
     @service_session.reload
+
     assert_equal updated_title, @service_session.title
     assert_equal updated_description, @service_session.description
     assert_equal updated_duration, @service_session.duration
@@ -91,6 +99,7 @@ class ServiceSessionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should not update service session with invalid data" do
     invalid_service_session_params = { title: nil }
+
     patch organization_service_service_session_url(
       id: @service_session.id, 
       service_id: @service,
@@ -98,6 +107,7 @@ class ServiceSessionsControllerTest < ActionDispatch::IntegrationTest
       ),
       params: { service_session: invalid_service_session_params },
       headers: default_headers
+    
     assert_response :unprocessable_entity
   end
 
@@ -110,6 +120,7 @@ class ServiceSessionsControllerTest < ActionDispatch::IntegrationTest
       ),
       headers: default_headers
     end
+    
     assert_response 204
   end
 end

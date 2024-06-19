@@ -11,7 +11,8 @@ class ServiceSessionsController < ApplicationController
   end
 
   def create
-    @service_session = @service.service_sessions.build(service_session_params)
+    @service_session = ServiceSession.new(service_session_params)
+
     if @service_session.save
       render json: @service_session, status: :created
     else
@@ -34,7 +35,7 @@ class ServiceSessionsController < ApplicationController
   private 
 
   def service_session_params
-    params.require(:service_session).permit(:title, :description, :duration, :price)
+    params.require(:service_session).permit(:title, :description, :duration, :price, :staff_member_id, :service_id)
   end
 
   def set_service

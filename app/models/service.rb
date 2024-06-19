@@ -1,5 +1,7 @@
 class Service < ApplicationRecord
-    belongs_to :organization
     validates :service_type, presence: true
+    
+    belongs_to :organization
     has_many :service_sessions, dependent: :destroy
+    has_many :staff_members, through: :service_sessions
 end
