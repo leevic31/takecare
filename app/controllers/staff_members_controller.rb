@@ -8,11 +8,20 @@ class StaffMembersController < ApplicationController
 
   def create
     @staff_member = StaffMember.new(staff_member_params)
-    @staff_member.save
+    
+    if @staff_member.save
+      render json: @staff_member, status: :created
+    else
+      render json: @staff_member.errors, status: :unprocessable_entity
+    end
   end
 
   def update
-    @staff_member.update(staff_member_params)
+    if @staff_member.update(staff_member_params)
+      render json: @staff_member
+    else
+      render json: @staff_member.errors, status: :unprocessable_entity
+    end
   end
 
   def destroy

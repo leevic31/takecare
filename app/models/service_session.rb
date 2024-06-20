@@ -3,5 +3,5 @@ class ServiceSession < ApplicationRecord
 
     belongs_to :service
     belongs_to :staff_member
-    has_many :bookings
+    has_many :bookings, dependent: :destroy
 end
