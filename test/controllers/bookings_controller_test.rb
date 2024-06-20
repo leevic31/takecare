@@ -6,6 +6,7 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @user, @token = sign_in_as(users(:lazaro_nixon))
     @booking = bookings(:one)
+    @service_session = service_sessions(:one)
   end
 
   def default_headers
@@ -19,10 +20,14 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create booking" do
     assert_difference("Booking.count") do
-      post bookings_url, params: { booking: { 
-        start_time: Time.now, 
-        end_time: Time.now + 1.hour, 
-        date: Date.new(2023, 6, 1) }, 
+      post bookings_url, 
+      params: { 
+        booking: { 
+          start_time: Time.now, 
+          end_time: Time.now + 1.hour, 
+          date: Date.new(2023, 6, 1),
+          service_session_id: @service_session.id
+        },
       }, 
       headers: default_headers
     end
