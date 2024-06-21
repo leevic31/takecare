@@ -6,7 +6,7 @@ class StaffMembersControllerTest < ActionDispatch::IntegrationTest
   setup do
     @user, @token = sign_in_as(users(:lazaro_nixon))
     @staff_member = staff_members(:one)
-    @staff_member2 = staff_members(:two)
+    @staff_member_with_no_service_sessions = staff_members(:two)
   end
 
   def default_headers
@@ -82,7 +82,7 @@ class StaffMembersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "staff member has no associated service sessions" do
-    assert_empty @staff_member2.service_sessions
+    assert_empty @staff_member_with_no_service_sessions.service_sessions
   end
 
   test "staff member has assoicated service sessions" do
