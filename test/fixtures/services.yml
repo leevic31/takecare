@@ -3,3 +3,7 @@
 one:
   service_type: "massage"
   organization: one
+
+two:
+  service_type: "accupuncture"
+  organization: one

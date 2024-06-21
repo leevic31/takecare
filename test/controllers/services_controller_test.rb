@@ -7,6 +7,7 @@ class ServicesControllerTest < ActionDispatch::IntegrationTest
     @user, @token = sign_in_as(users(:lazaro_nixon))
     @service = services(:one)
     @organization = organizations(:one)
+    @service_with_no_service_sessions = services(:two)
   end
   
   def default_headers
@@ -65,5 +66,13 @@ class ServicesControllerTest < ActionDispatch::IntegrationTest
       headers: default_headers
     end
     assert_response 204
+  end
+
+  test "service has no associated service sessions" do
+    assert_empty @service_with_no_service_sessions.service_sessions
+  end
+
+  test "service has associated service sessions" do
+    assert_equal 1, @service.service_sessions.count
   end
 end
