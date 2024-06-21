@@ -5,27 +5,36 @@ import {
   RouterProvider
 } from "react-router-dom";
 import './App.css';
+import '@radix-ui/themes/styles.css';
 import Home from "./components/Home"
 import Organization, { organizationLoader } from './components/Organization';
 import Organizations from './components/Organizations';
-import '@radix-ui/themes/styles.css';
+import SignUp from "./components/SignUp";
+import SignIn from "./components/SignIn";
 
 function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route 
-        path="/" 
-        element={<Home />}
-      >
+      <Route>
         <Route 
-          path="organizations" 
-          element={<Organizations/>} 
-        />
+          path="/" 
+          element={<Home />}
+        >
+          <Route 
+            path="organizations" 
+            element={<Organizations/>} 
+          />
+          <Route
+            path="organizations/:id"
+            element={<Organization />}
+            loader={organizationLoader}
+          />
+        </Route>
         <Route
-          path="organizations/:id"
-          element={<Organization />}
-          loader={organizationLoader}
+          path="signup"
+          element={<SignUp />}
         />
+        <Route path="signin" element={<SignIn />} />
       </Route>
     )
   )
