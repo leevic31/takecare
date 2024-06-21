@@ -1,6 +1,9 @@
 class ServicesController < ApplicationController
+  include RoleAuthorization
+
   before_action :set_organization
   before_action :set_service, only: [:update, :destroy]
+  before_action :check_admin_role
 
   # TODO figure out the right way to avoid this
   # skip_before_action :verify_authenticity_token, only: [:create, :update, :destroy]

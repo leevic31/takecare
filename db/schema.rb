@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_19_235642) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_21_020906) do
   create_table "bookings", force: :cascade do |t|
     t.boolean "available", default: true
     t.time "start_time"
@@ -24,6 +24,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_19_235642) do
 
   create_table "organizations", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string "name"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
