@@ -28,16 +28,4 @@ class User < ApplicationRecord
   end
 
   normalizes :email, with: -> { _1.strip.downcase }
-
-  def has_role?(role_name)
-    role.exists?(name: role_name)
-  end
-
-  def add_role(role_name)
-    roles.create(name: role_name)
-  end
-
-  def remove_role(role_name)
-    roles.where(name: role_name).destroy_all
-  end
 end
