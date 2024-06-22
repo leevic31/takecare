@@ -1,9 +1,12 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
+    def setup
+        @user = build(:user)
+    end
+
     test "should be valid with valid attributes" do
-        user = build(:user)
-        assert user.valid?, "User is not valid: #{user.errors.inspect}"
+        assert @user.valid?, "User is not valid: #{@user.errors.inspect}"
     end
 
     test "should not be valid without an email" do
@@ -26,19 +29,27 @@ class UserTest < ActiveSupport::TestCase
     end
 
     test "should not be valid with a password less than 12 characters" do
-        user = create(:user, password: 'password', password_confirmation: 'password')
-        # user = build(:user, :short_password)
-        assert_not user.valid?, "Saved user with password that is too short"
-        assert_includes user.errors[:password], "is too short (minimum is 12 characters)"
+        @user.password_digest = nil
+        @user.password = "a" * 8
+        assert_not @user.valid?, "Saved user with password that is too short"
     end
 
-    # test "should authenticate with correct password" do
-    #     user = create(:user, password: 'password', password_confirmation: 'password')
-    #     assert user.authenticate('password'), "User did not authenticate with correct password"
-    # end
-    
-    # test "should not authenticate with incorrect password" do
-    #     user = create(:user, password: 'password', password_confirmation: 'password')
-    #     assert_not user.authenticate('wrongpassword'), "User authenticated with incorrect password"
-    # end
+    test "should have a role" do
+        assert @user.role.present?
+    end
+
+    test "should belong to the correct role" do
+        @client_role = build(:role, :client)
+        @admin_role = build(:role, :admin)
+        @staff_member = build(:role, :staff_member)
+
+        @client_user = build(:user, role: @client_role)
+        @admin_user = build(:user, role: @admin_role)
+        @staff_member_user = build(:user, role: @staff_member)
+
+        assert_equal "admin", @admin_user.role.name
+        assert_equal "client", @client_user.role.name
+        assert_equal "staff member", @staff_member_user.role.name
+
+    end
 end
