@@ -2,11 +2,12 @@ class User < ApplicationRecord
   # Associations
   has_secure_password
   has_many :sessions, dependent: :destroy
-  has_many :roles, dependent: :destroy
+  belongs_to :role
 
   # Validations
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, allow_nil: true, length: { minimum: 12 }
+  validates :role, presence: true
 
   # Callbacks
   before_validation if: :email_changed?, on: :update do
