@@ -50,6 +50,5 @@ class UserTest < ActiveSupport::TestCase
         assert_equal "admin", @admin_user.role.name
         assert_equal "client", @client_user.role.name
         assert_equal "staff member", @staff_member_user.role.name
-
     end
 end

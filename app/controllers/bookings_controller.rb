@@ -2,12 +2,15 @@ class BookingsController < ApplicationController
   before_action :set_booking, only: [:update, :destroy]
 
   def index
-    @bookings = Booking.all
+    @bookings = policy_scope(Booking)
+    authorize Booking
     render json: @bookings
   end
 
   def create
     @booking = Booking.new(booking_params)
+    authorize @booking 
+
     if @booking.save
       render json: @booking, status: :created
     else
@@ -16,6 +19,8 @@ class BookingsController < ApplicationController
   end
 
   def update
+    authorize @booking
+
     if @booking.update(booking_params)
       render json: @booking
     else
@@ -24,6 +29,7 @@ class BookingsController < ApplicationController
   end
 
   def destroy
+    authorize @booking
     @booking.destroy
   end
 
