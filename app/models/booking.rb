@@ -3,6 +3,8 @@ class Booking < ApplicationRecord
 
     belongs_to :service_session
 
+    has_one :hold
+
     def book_appointment
         if self.available
             self.update(available: false)

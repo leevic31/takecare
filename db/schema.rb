@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_21_171055) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_23_200412) do
   create_table "bookings", force: :cascade do |t|
     t.boolean "available", default: true
     t.time "start_time"
@@ -20,6 +20,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_21_171055) do
     t.date "date"
     t.integer "service_session_id", null: false
     t.index ["service_session_id"], name: "index_bookings_on_service_session_id"
+  end
+
+  create_table "holds", force: :cascade do |t|
+    t.integer "booking_id", null: false
+    t.datetime "expires_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["booking_id"], name: "index_holds_on_booking_id"
   end
 
   create_table "organizations", force: :cascade do |t|
@@ -82,6 +90,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_21_171055) do
   end
 
   add_foreign_key "bookings", "service_sessions"
+  add_foreign_key "holds", "bookings"
   add_foreign_key "service_sessions", "services"
   add_foreign_key "service_sessions", "staff_members"
   add_foreign_key "services", "organizations"

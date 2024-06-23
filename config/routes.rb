@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'holds/create'
+  get 'holds/destroy'
   get  "sign_in", to: "sessions#new"
   post "sign_in", to: "sessions#create"
   get  "sign_up", to: "registrations#new"
@@ -26,6 +28,9 @@ Rails.application.routes.draw do
     end
   end
   
-  resources :bookings
+  resources :bookings do
+    resource :hold, only: [:create, :destroy]
+  end
+  
   resources :staff_members
 end
