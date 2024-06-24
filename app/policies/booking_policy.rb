@@ -11,13 +11,13 @@ class BookingPolicy < ApplicationPolicy
       # Admins can see all bookings
       if user.admin?
         scope.all
-      # Users can only see their own bookings
+        # Users can only see their own bookings
       else
         scope.where(user_id: user.id)
       end
     end
   end
-
+  
   def index?
     user.admin?
   end

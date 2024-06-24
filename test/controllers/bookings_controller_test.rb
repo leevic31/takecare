@@ -4,7 +4,7 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
   include Rails.application.routes.url_helpers
   
   setup do
-    @user, @token = sign_in_as(users(:lazaro_nixon))
+    @user, @token = sign_in_as(FactoryBot.create(:user))
     @booking = bookings(:one)
     @service_session = service_sessions(:one)
   end

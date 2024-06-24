@@ -1,7 +1,7 @@
 FactoryBot.define do
     factory :user do
         email { Faker::Internet.email }
-        password { Faker::Internet.password(min_length: password_length) }
+        password { "Secret1*3*5*" }
         verified { true }
         association :role
         
