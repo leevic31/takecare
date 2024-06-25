@@ -78,20 +78,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_24_202516) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "email", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "role_id", null: false
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["role_id"], name: "index_users_on_role_id"
-  end
-
   add_foreign_key "bookings", "service_sessions"
   add_foreign_key "holds", "bookings"
   add_foreign_key "service_sessions", "services"
   add_foreign_key "service_sessions", "staff_members"
   add_foreign_key "services", "organizations"
   add_foreign_key "sessions", "users"
-  add_foreign_key "users", "roles"
 end
