@@ -78,3 +78,5 @@ gem 'pundit'
 gem 'devise'
 gem 'devise-jwt'
 gem 'bcrypt', '~> 3.1.7'  # For password hashing
+
+gem 'rolify'
