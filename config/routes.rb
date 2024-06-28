@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  devise_for :users, controllers: {
+    registrations: 'registrations'
+  }, skip: [:sessions]
+
   get 'holds/create'
   get 'holds/destroy'
 
