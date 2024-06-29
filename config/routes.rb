@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: {
-    registrations: 'registrations'
-  }, skip: [:sessions]
+  devise_scope :user do
+    post '/auth/sign_in', to: 'sessions#create'
+  end
+
+  devise_for :users, skip: [:sessions]
 
   get 'holds/create'
   get 'holds/destroy'
