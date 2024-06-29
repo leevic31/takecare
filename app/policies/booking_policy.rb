@@ -9,7 +9,7 @@ class BookingPolicy < ApplicationPolicy
     # NOTE: Be explicit about which records you allow access to!
     def resolve
       # Admins can see all bookings
-      if user.admin?
+      if user.has_role?(:admin)
         scope.all
         # Users can only see their own bookings
       else
@@ -19,18 +19,18 @@ class BookingPolicy < ApplicationPolicy
   end
   
   def index?
-    user.admin?
+    user.has_role?(:admin)
   end
 
   def create?
-    user.admin? || user.staff_member?
+    user.has_role?(:admin) || user.has_role?(:staff_member)
   end
 
   def update?
-    user.admin? || record.user == user
+    user.has_role?(:admin) || record.user == user
   end
 
   def destroy?
-    user.admin? || record.user == user
+    user.has_role?(:admin) || record.user == user
   end
 end
