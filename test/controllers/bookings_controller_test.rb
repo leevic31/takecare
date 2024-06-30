@@ -18,10 +18,9 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
 
     @organization = Organization.create(name: "Org")
     @service = Service.create(service_type: "Massage", organization_id: @organization.id)
-    @staff = StaffMember.create(name: "Bob")
     @service_session = ServiceSession.create(
       title: "title", 
-      staff_member_id: @staff.id,
+      user_id: @staff_member_user.id,
       service_id: @service.id
     )
   end
@@ -39,8 +38,27 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "should create booking" do
+  test "admin should create booking" do
     sign_in @admin_user
+
+    assert_difference("Booking.count") do
+      post bookings_url, 
+      params: { 
+        booking: { 
+          start_time: Time.now, 
+          end_time: Time.now + 1.hour, 
+          date: Date.new(2023, 6, 1),
+          service_session_id: @service_session.id
+        },
+      }, 
+      as: :json 
+    end
+  
+    assert_response :created
+  end
+
+  test "staff member should create booking" do
+    sign_in @staff_member_user
 
     assert_difference("Booking.count") do
       post bookings_url, 
