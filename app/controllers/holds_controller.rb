@@ -5,6 +5,7 @@ class HoldsController < ApplicationController
     @hold = @booking.build_hold(expires_at: 5.minutes.from_now)
 
     if @hold.save
+      HoldDestroyJob.set(wait_until: @hold.expires_at).perform_later(@hold)
       render json: @hold, status: :created
     else
       render json: @hold.errors, status: :unprocessable_entity
@@ -12,7 +13,7 @@ class HoldsController < ApplicationController
   end
 
   def destroy
-    @booking.hold.destroy if @boooking.hold
+    @booking.hold.destroy if @booking.hold
     head :no_content
   end
 
