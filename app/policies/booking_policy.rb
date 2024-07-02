@@ -27,10 +27,10 @@ class BookingPolicy < ApplicationPolicy
   end
 
   def update?
-    user.has_role?(:admin) || record.user == user
+    user.has_role?(:admin) || (user.has_role?(:staff_member) && record.user == user)
   end
 
   def destroy?
-    user.has_role?(:admin) || record.user == user
+    user.has_role?(:admin) || (user.has_role?(:staff_member) && record.user == user)
   end
 end
