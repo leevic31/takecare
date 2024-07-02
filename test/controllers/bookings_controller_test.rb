@@ -120,25 +120,30 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
     assert_equal updated_availability, @booking.available
   end
 
-  # test "should not update booking with invalid data" do
-  #   invalid_availability = nil
+  test "should not update booking with invalid data" do
+    sign_in @admin_user
 
-  #   patch booking_url(@booking),
-  #     params: {
-  #       booking: {
-  #         available: invalid_availability
-  #       }
-  #     },
-  #     headers: default_headers
+    invalid_availability = nil
 
-  #   assert_response :unprocessable_entity
-  # end
+    patch booking_url(@booking),
+      params: {
+        booking: {
+          available: invalid_availability
+        }
+      },
+      as: :json
 
-  # test "should delete booking" do
-  #   assert_difference("Booking.count", -1) do
-  #     delete booking_url(@booking), headers: default_headers
-  #   end
+    assert_response :unprocessable_entity
+  end
 
-  #   assert_response 204
-  # end
+  test "should delete booking" do
+    sign_in @admin_user
+
+    assert_difference("Booking.count", -1) do
+      delete booking_url(@booking),
+      as: :json
+    end
+
+    assert_response 204
+  end
 end
