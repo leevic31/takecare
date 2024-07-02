@@ -23,6 +23,8 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
       user_id: @staff_member_user.id,
       service_id: @service.id
     )
+
+    @booking = FactoryBot.create(:booking)
   end
 
   test "admin should get index" do
@@ -76,36 +78,47 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
     assert_response :created
   end
 
-  # test "should not create booking with invalid data" do
-  #   invalid_booking_params = {
-  #     start_time: Time.now, 
-  #     end_time: Time.now + 1.hour 
-  #   }
+  test "client should not create booking" do
+    sign_in @client_user
+    assert_raises Pundit::NotAuthorizedError do
+      get bookings_url, as: :json
+    end
+  end
+
+  test "should not create booking with invalid data" do
+    sign_in @admin_user
+
+    invalid_booking_params = {
+      start_time: Time.now, 
+      end_time: Time.now + 1.hour 
+    }
     
-  #   assert_no_difference 'Booking.count' do
-  #     post bookings_url, 
-  #       params: { booking: invalid_booking_params }, 
-  #       headers: default_headers
+    assert_no_difference 'Booking.count' do
+      post bookings_url, 
+        params: { booking: invalid_booking_params }, 
+        as: :json
       
-  #     assert_response :unprocessable_entity
-  #   end
-  # end
+      assert_response :unprocessable_entity
+    end
+  end
 
-  # test "should update booking" do
-  #   updated_availability = true
+  test "admin should update booking" do
+    sign_in @admin_user
 
-  #   patch booking_url(@booking), 
-  #     params: { 
-  #       booking: {
-  #         available: updated_availability 
-  #       }
-  #     }, 
-  #     headers: default_headers
+    updated_availability = true
 
-  #   @booking.reload
+    patch booking_url(@booking), 
+      params: { 
+        booking: {
+          available: updated_availability 
+        }
+      }, 
+      as: :json
 
-  #   assert_equal updated_availability, @booking.available
-  # end
+    @booking.reload
+
+    assert_equal updated_availability, @booking.available
+  end
 
   # test "should not update booking with invalid data" do
   #   invalid_availability = nil
