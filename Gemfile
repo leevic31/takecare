@@ -80,3 +80,5 @@ gem 'devise-jwt'
 gem 'bcrypt', '~> 3.1.7'  # For password hashing
 
 gem 'rolify'
+
+gem "solargraph", "~> 0.50.0", :group => :development
