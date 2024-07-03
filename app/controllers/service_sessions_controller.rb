@@ -7,11 +7,13 @@ class ServiceSessionsController < ApplicationController
   
   def index
     @service_sessions = @service.service_sessions
+    authorize ServiceSession
     render json: @service_sessions
   end
 
   def create
     @service_session = ServiceSession.new(service_session_params)
+    authorize @service_session
 
     if @service_session.save
       render json: @service_session, status: :created
@@ -21,6 +23,8 @@ class ServiceSessionsController < ApplicationController
   end
 
   def update
+    authorize @service_session
+
     if @service_session.update(service_session_params)
       render json: @service_session
     else
@@ -29,13 +33,14 @@ class ServiceSessionsController < ApplicationController
   end
 
   def destroy
+    authorize @service_session
     @service_session.destroy
   end
 
   private 
 
   def service_session_params
-    params.require(:service_session).permit(:title, :description, :duration, :price, :staff_member_id, :service_id)
+    params.require(:service_session).permit(:title, :description, :duration, :price, :user_id, :service_id)
   end
 
   def set_service

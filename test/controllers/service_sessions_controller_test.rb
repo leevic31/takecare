@@ -1,17 +1,22 @@
 require "test_helper"
 
 class ServiceSessionsControllerTest < ActionDispatch::IntegrationTest
-  include Rails.application.routes.url_helpers
+  include Devise::Test::IntegrationHelpers
 
   setup do
-    @user, @token = sign_in_as(users(:lazaro_nixon))
-    @service_session = service_sessions(:one)
-    @service = services(:one)
-    @staff_member = staff_members(:one)
-  end
-  
-  def default_headers
-    { "Authorization" => "Bearer #{@token}" }
+    @service_session = FactoryBot.create(:service_session)
+    @service = @service_session.service
+    @organization = @service.organization
+
+    @admin_role = FactoryBot.create(:role, :admin)
+    @admin_user = FactoryBot.create(:user)
+    @admin_user.add_role(@admin_role.name)
+
+    @staff_member_role = FactoryBot.create(:role, :staff_member)
+    @staff_member_user = FactoryBot.create(:user)
+    @staff_member_user.add_role(@staff_member_role.name)
+
+    sign_in @admin_user
   end
 
   test "should get index" do
@@ -19,7 +24,7 @@ class ServiceSessionsControllerTest < ActionDispatch::IntegrationTest
       service_id: @service,
       organization_id: @service.organization
     ), 
-    headers: default_headers
+    as: :json
 
     assert_response :success
   end
@@ -37,10 +42,10 @@ class ServiceSessionsControllerTest < ActionDispatch::IntegrationTest
           duration: 1,
           price: 9.99,
           service_id: @service.id,
-          staff_member_id: @staff_member.id
+          user_id: @staff_member_user.id
         },
       }, 
-      headers: default_headers
+      as: :json
     end
 
     assert_response :created
@@ -62,7 +67,7 @@ class ServiceSessionsControllerTest < ActionDispatch::IntegrationTest
       params: {
         service_session: invalid_service_session_params
       }, 
-      headers: default_headers
+      as: :json
     end
 
     assert_response :unprocessable_entity
@@ -87,7 +92,7 @@ class ServiceSessionsControllerTest < ActionDispatch::IntegrationTest
           price: updated_price
         }
       }, 
-      headers: default_headers
+      as: :json
 
     @service_session.reload
 
@@ -106,7 +111,7 @@ class ServiceSessionsControllerTest < ActionDispatch::IntegrationTest
       organization_id: @service.organization
       ),
       params: { service_session: invalid_service_session_params },
-      headers: default_headers
+      as: :json
     
     assert_response :unprocessable_entity
   end
@@ -118,7 +123,7 @@ class ServiceSessionsControllerTest < ActionDispatch::IntegrationTest
         service_id: @service,
         organization_id: @service.organization
       ),
-      headers: default_headers
+      as: :json
     end
     
     assert_response 204
