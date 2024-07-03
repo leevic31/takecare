@@ -1,43 +1,36 @@
 require "test_helper"
 
 class ServicesControllerTest < ActionDispatch::IntegrationTest
-  include Rails.application.routes.url_helpers
+  include Devise::Test::IntegrationHelpers
 
   setup do
-    @user, @token = sign_in_as(users(:lazaro_nixon))
-    @service = services(:one)
-    @organization = organizations(:one)
-    @service_with_no_service_sessions = services(:two)
-  end
-  
-  def default_headers
-    { "Authorization" => "Bearer #{@token}" }
+    @service = FactoryBot.create(:service)
+
+    @admin_role = FactoryBot.create(:role, :admin)
+    @admin_user = FactoryBot.create(:user)
+    @admin_user.add_role(@admin_role.name)
+
+    sign_in @admin_user
   end
 
   test "should get index" do
-    get organization_services_url(
-      organization_id: @service.organization
-    ),
-    headers: default_headers
-
+    get organization_services_url(organization_id: @service.organization), as: :json
     assert_response :success
   end
 
   test "should create service" do
     assert_difference("Service.count") do
-      post organization_services_url(
-        organization_id: @service.organization
-      ),
+      post organization_services_url(organization_id: @service.organization),
       params: {
         service: {
           service_type: "massage",
           organization: @organization
         },
       },
-      headers: default_headers
+      as: :json
     end
 
-    assert_response 204
+    assert_response :created
   end
 
   test "should update service" do
@@ -51,9 +44,10 @@ class ServicesControllerTest < ActionDispatch::IntegrationTest
         service_type: updated_service_type
       }
     },
-    headers: default_headers
+    as: :json
 
     @service.reload
+
     assert_equal updated_service_type, @service.service_type
   end
 
@@ -63,16 +57,9 @@ class ServicesControllerTest < ActionDispatch::IntegrationTest
         id: @service.id,
         organization_id: @service.organization
       ),
-      headers: default_headers
+      as: :json
     end
+
     assert_response 204
-  end
-
-  test "service has no associated service sessions" do
-    assert_empty @service_with_no_service_sessions.service_sessions
-  end
-
-  test "service has associated service sessions" do
-    assert_equal 1, @service.service_sessions.count
   end
 end

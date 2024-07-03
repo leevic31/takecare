@@ -7,19 +7,33 @@ class ServicesController < ApplicationController
 
   def index
     @services = @organization.services
+    authorize Service
     render json: @services
   end
 
   def create
     @service = @organization.services.build(service_params)
-    @service.save
+    authorize @service
+
+    if @service.save
+      render json: @service, status: :created
+    else
+      render json: @service.errors, status: :unprocessable_entity
+    end
   end
 
   def update
-    @service.update(service_params)
+    authorize @service
+
+    if @service.update(service_params)
+      render json: @service
+    else
+      render json: @service.errors, status: :unprocessable_entity
+    end
   end
 
   def destroy
+    authorize @service
     @service.destroy
   end
 
