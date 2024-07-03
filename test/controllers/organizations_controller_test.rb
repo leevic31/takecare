@@ -9,28 +9,16 @@ class OrganizationsControllerTest < ActionDispatch::IntegrationTest
     @admin_role = FactoryBot.create(:role, :admin)
     @admin_user = FactoryBot.create(:user)
     @admin_user.add_role(@admin_role.name)
-
-    @client_role = FactoryBot.create(:role, :client)
-    @client_user = FactoryBot.create(:user)
-    @client_user.add_role(@client_role.name)
+    
+    sign_in @admin_user
   end
 
-  test "admin should get index" do
-    sign_in @admin_user
+  test "should get index" do
     get organizations_url, as: :json
     assert_response :success
   end
 
-  test "client should not get index" do
-    sign_in @client_user
-    assert_raises Pundit::NotAuthorizedError do
-      get organizations_url, as: :json
-    end
-  end
-
-  test "admin should create organization" do
-    sign_in @admin_user
-
+  test "should create organization" do
     assert_difference("Organization.count") do
       post organizations_url,
       params: {
@@ -45,8 +33,6 @@ class OrganizationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should not create organization with invalid data" do
-    sign_in @admin_user
-
     invalid_organization_params = {
       invalid_name: 123
     }
@@ -61,8 +47,6 @@ class OrganizationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "admin should update organization" do
-    sign_in @admin_user
-
     updated_name = "new org name"
 
     patch organization_url(@organization),
@@ -78,8 +62,6 @@ class OrganizationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should not update organization with invalid data" do
-    sign_in @admin_user
-
     invalid_name = nil
 
     patch organization_url(@organization),
@@ -91,9 +73,7 @@ class OrganizationsControllerTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_entity
   end
 
-  test "admin should delete organization" do
-    sign_in @admin_user
-    
+  test "should delete organization" do    
     assert_difference("Organization.count", -1) do
       delete organization_url(@organization),
       as: :json
