@@ -24,44 +24,44 @@ class OrganizationPolicyTest < ActiveSupport::TestCase
     assert OrganizationPolicy.new(@admin_user, Organization).index?
   end
 
-  test "staff member can not get index" do
-    refute OrganizationPolicy.new(@staff_member_user, Organization).index?
-  end
-
-  test "client can not get index" do
-    refute OrganizationPolicy.new(@client_user, Organization).index?
-  end
-  
   test "admin can create organization" do
     assert OrganizationPolicy.new(@admin_user, Organization).create?
-  end
-
-  test "staff member can not create organization" do
-    refute OrganizationPolicy.new(@staff_member_user, Organization).create?
-  end
-
-  test "client can not create organization" do
-    refute OrganizationPolicy.new(@client_user, Organization).create?
   end
 
   test "admin can update organization" do
     assert OrganizationPolicy.new(@admin_user, Organization).update?
   end
 
-  test "staff member can not update organization" do
-    refute OrganizationPolicy.new(@staff_member_user, Organization).update?
-  end
-
-  test "client can not update organization" do
-    refute OrganizationPolicy.new(@client_user, Organization).update?
-  end
-
   test "admin can destroy organization" do
     assert OrganizationPolicy.new(@admin_user, Organization).destroy?
   end
 
+  test "staff member can not get index" do
+    refute OrganizationPolicy.new(@staff_member_user, Organization).index?
+  end
+
+  test "staff member can not create organization" do
+    refute OrganizationPolicy.new(@staff_member_user, Organization).create?
+  end
+
+  test "staff member can not update organization" do
+    refute OrganizationPolicy.new(@staff_member_user, Organization).update?
+  end
+
   test "staff member can not destroy organization" do
     refute OrganizationPolicy.new(@staff_member_user, Organization).destroy?
+  end
+
+  test "client can not get index" do
+    refute OrganizationPolicy.new(@client_user, Organization).index?
+  end
+  
+  test "client can not create organization" do
+    refute OrganizationPolicy.new(@client_user, Organization).create?
+  end
+
+  test "client can not update organization" do
+    refute OrganizationPolicy.new(@client_user, Organization).update?
   end
 
   test "client can not destroy organization" do
