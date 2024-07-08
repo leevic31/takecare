@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :hold do
-    booking { nil }
-    expires_at { "2024-06-23 16:04:13" }
+    association :booking
+    expires_at { 5.minutes.from_now }
   end
 end

@@ -84,3 +84,5 @@ gem 'rolify'
 gem "solargraph", "~> 0.50.0", :group => :development
 
 gem 'delayed_job_active_record'
+
+gem 'daemons'

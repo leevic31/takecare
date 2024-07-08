@@ -3,7 +3,7 @@ class Booking < ApplicationRecord
 
     belongs_to :service_session
 
-    has_one :hold
+    has_one :hold, dependent: :destroy
 
     def book_appointment
         if self.available
