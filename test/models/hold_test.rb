@@ -23,4 +23,20 @@ class HoldTest < ActiveSupport::TestCase
 
     assert_equal 0, Delayed::Job.count, "Job was not cancelled"
   end
+
+  test "should only cancel job related to the destroyed hold" do
+    booking = FactoryBot.create(:booking)
+
+    hold1 = FactoryBot.create(:hold)
+    hold2 = FactoryBot.create(:hold)
+
+    job1 = HoldDestroyJob.set(wait: 1.hour).perform_later(hold1)
+    job2 = HoldDestroyJob.set(wait: 1.hour).perform_later(hold2)
+
+    assert_equal 2, Delayed::Job.count
+    
+    hold1.destroy
+    
+    assert_equal 1, Delayed::Job.count
+  end
 end
