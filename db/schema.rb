@@ -10,16 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_02_194012) do
-  create_table "bookings", force: :cascade do |t|
-    t.boolean "available", default: true
-    t.time "start_time"
-    t.time "end_time"
+ActiveRecord::Schema[7.1].define(version: 2024_07_10_013836) do
+  create_table "availability_blocks", force: :cascade do |t|
+    t.datetime "start_time"
+    t.datetime "end_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.date "date"
-    t.integer "service_session_id", null: false
-    t.index ["service_session_id"], name: "index_bookings_on_service_session_id"
+    t.integer "user_id", null: false
+    t.index ["user_id"], name: "index_availability_blocks_on_user_id"
+  end
+
+  create_table "bookings", force: :cascade do |t|
+    t.boolean "available", default: true
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "availability_block_id", null: false
+    t.integer "user_id", null: false
+    t.index ["availability_block_id"], name: "index_bookings_on_availability_block_id"
+    t.index ["user_id"], name: "index_bookings_on_user_id"
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -62,19 +72,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_02_194012) do
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
   end
 
-  create_table "service_sessions", force: :cascade do |t|
-    t.string "title"
-    t.text "description"
-    t.integer "duration"
-    t.decimal "price"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "service_id", null: false
-    t.integer "user_id", null: false
-    t.index ["service_id"], name: "index_sessions_on_service_id"
-    t.index ["user_id"], name: "index_service_sessions_on_user_id"
-  end
-
   create_table "services", force: :cascade do |t|
     t.string "service_type"
     t.datetime "created_at", null: false
@@ -112,10 +109,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_02_194012) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
-  add_foreign_key "bookings", "service_sessions"
+  add_foreign_key "availability_blocks", "users"
+  add_foreign_key "bookings", "availability_blocks"
+  add_foreign_key "bookings", "users"
   add_foreign_key "holds", "bookings"
-  add_foreign_key "service_sessions", "services"
-  add_foreign_key "service_sessions", "users"
   add_foreign_key "services", "organizations"
   add_foreign_key "sessions", "users"
 end
