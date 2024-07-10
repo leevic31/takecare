@@ -1,14 +1,18 @@
 require 'test_helper'
 
 class BookingPolicyTest < ActiveSupport::TestCase
-  def setup
-    @client_role = build(:role, :client)
-    @admin_role = build(:role, :admin)
-    @staff_member = build(:role, :staff_member)
+  setup do
+    @admin_role = FactoryBot.create(:role, :admin)
+    @admin_user = FactoryBot.create(:user)
+    @admin_user.add_role(@admin_role.name)
 
-    @client_user = build(:user, role: @client_role)
-    @admin_user = build(:user, role: @admin_role)
-    @staff_member_user = build(:user, role: @staff_member)
+    @staff_member_role = FactoryBot.create(:role, :staff_member)
+    @staff_member_user = FactoryBot.create(:user)
+    @staff_member_user.add_role(@staff_member_role.name)
+
+    @client_role = FactoryBot.create(:role, :client)
+    @client_user = FactoryBot.create(:user)
+    @client_user.add_role(@client_role.name)
   end
 
   test "admin can manage all bookings" do
@@ -19,19 +23,4 @@ class BookingPolicyTest < ActiveSupport::TestCase
     assert booking_policy.update?
     assert booking_policy.destroy?
   end
-
-  # def test_scope
-  # end
-
-  # def test_show
-  # end
-
-  # def test_create
-  # end
-
-  # def test_update
-  # end
-
-  # def test_destroy
-  # end
 end
