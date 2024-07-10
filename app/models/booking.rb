@@ -12,4 +12,10 @@ class Booking < ApplicationRecord
             self.update(available: false)
         end
     end
+
+    def cancel_appointment
+        if !self.available
+            self.update(available: true)
+        end
+    end
 end

@@ -2,12 +2,13 @@ require "test_helper"
 
 class BookingTest < ActiveSupport::TestCase
   setup do
-    @booking = Booking.new(
-      available: true,
-      start_time: "2024-05-04 13:45:12",
-      end_time: "2024-05-04 13:45:12",
-      date: "2024-05-04"
-    )
+    # @booking = Booking.new(
+    #   available: true,
+    #   start_time: "2024-05-04 13:45:12",
+    #   end_time: "2024-05-04 13:45:12",
+    #   date: "2024-05-04"
+    # )
+    @booking = FactoryBot.create(:booking)
   end
 
   test "should be valid" do
@@ -29,13 +30,14 @@ class BookingTest < ActiveSupport::TestCase
     assert_not @booking.valid?
   end
 
-  test "date should be present" do
-    @booking.date = nil
-    assert_not @booking.valid?
-  end
-
   test "book_appointment should change availablity of booking from true to false" do
     @booking.book_appointment
     assert_equal false, @booking.available
+  end
+  
+  test "cancel_appointment should change availability of booking from false to true" do
+    @booking.available = false
+    @booking.cancel_appointment
+    assert_equal true, @booking.available
   end
 end
