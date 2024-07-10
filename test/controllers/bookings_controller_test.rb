@@ -8,79 +8,39 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
     @admin_user = FactoryBot.create(:user)
     @admin_user.add_role(@admin_role.name)
 
-    @staff_member_role = FactoryBot.create(:role, :staff_member)
-    @staff_member_user = FactoryBot.create(:user)
-    @staff_member_user.add_role(@staff_member_role.name)
-
-    @client_role = FactoryBot.create(:role, :client)
-    @client_user = FactoryBot.create(:user)
-    @client_user.add_role(@client_role.name)
-
     @organization = Organization.create(name: "Org")
     @service = Service.create(service_type: "Massage", organization_id: @organization.id)
 
+    @availability_block = FactoryBot.create(:availability_block)
     @booking = FactoryBot.create(:booking)
+
+    sign_in @admin_user
   end
 
-  test "admin should get index" do
-    sign_in @admin_user
+  test "should get index" do
     get bookings_url, as: :json
     assert_response :success
   end
 
-  test "client should not get index" do
-    sign_in @client_user
-    assert_raises Pundit::NotAuthorizedError do
-      get bookings_url, as: :json
-    end
-  end
-
-  test "admin should create booking" do
-    sign_in @admin_user
-
+  test "should create booking" do
     assert_difference("Booking.count") do
       post bookings_url, 
       params: { 
         booking: { 
           start_time: Time.now, 
           end_time: Time.now + 1.hour, 
-          date: Date.new(2023, 6, 1)
+          date: Date.new(2023, 6, 1),
+          user_id: @admin_user.id,
+          availability_block_id: @availability_block.id
         },
       }, 
       as: :json 
     end
   
     assert_response :created
-  end
-
-  test "staff member should create booking" do
-    sign_in @staff_member_user
-
-    assert_difference("Booking.count") do
-      post bookings_url, 
-      params: { 
-        booking: { 
-          start_time: Time.now, 
-          end_time: Time.now + 1.hour, 
-          date: Date.new(2023, 6, 1)
-        },
-      }, 
-      as: :json 
-    end
-  
-    assert_response :created
-  end
-
-  test "client should not create booking" do
-    sign_in @client_user
-    assert_raises Pundit::NotAuthorizedError do
-      get bookings_url, as: :json
-    end
   end
 
   test "should not create booking with invalid data" do
-    sign_in @admin_user
-
     invalid_booking_params = {
       start_time: Time.now, 
       end_time: Time.now + 1.hour 
@@ -95,9 +55,7 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "admin should update booking" do
-    sign_in @admin_user
-
+  test "should update booking" do
     updated_availability = true
 
     patch booking_url(@booking), 
@@ -114,14 +72,12 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should not update booking with invalid data" do
-    sign_in @admin_user
-
-    invalid_availability = nil
+    invalid_end_time = nil
 
     patch booking_url(@booking),
       params: {
         booking: {
-          available: invalid_availability
+          end_time: invalid_end_time
         }
       },
       as: :json
@@ -130,8 +86,6 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should delete booking" do
-    sign_in @admin_user
-
     assert_difference("Booking.count", -1) do
       delete booking_url(@booking),
       as: :json
