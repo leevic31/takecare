@@ -23,4 +23,6 @@ Rails.application.routes.draw do
   end
   
   resources :staff_members
+
+  resources :availability_blocks, only: [:create]
 end

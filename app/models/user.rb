@@ -8,4 +8,7 @@ class User < ApplicationRecord
          :jwt_authenticatable, jwt_revocation_strategy: Devise::JWT::RevocationStrategies::JTIMatcher
 
   rolify
+
+  # Associations
+  has_many :bookings
 end
