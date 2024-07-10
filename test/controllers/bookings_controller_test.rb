@@ -18,11 +18,6 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
 
     @organization = Organization.create(name: "Org")
     @service = Service.create(service_type: "Massage", organization_id: @organization.id)
-    @service_session = ServiceSession.create(
-      title: "title", 
-      user_id: @staff_member_user.id,
-      service_id: @service.id
-    )
 
     @booking = FactoryBot.create(:booking)
   end
@@ -49,8 +44,7 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
         booking: { 
           start_time: Time.now, 
           end_time: Time.now + 1.hour, 
-          date: Date.new(2023, 6, 1),
-          service_session_id: @service_session.id
+          date: Date.new(2023, 6, 1)
         },
       }, 
       as: :json 
@@ -68,8 +62,7 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
         booking: { 
           start_time: Time.now, 
           end_time: Time.now + 1.hour, 
-          date: Date.new(2023, 6, 1),
-          service_session_id: @service_session.id
+          date: Date.new(2023, 6, 1)
         },
       }, 
       as: :json 

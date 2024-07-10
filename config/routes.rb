@@ -15,9 +15,7 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   resources :organizations do
-    resources :services do
-      resources :service_sessions
-    end
+    resources :services
   end
   
   resources :bookings do

@@ -1,10 +1,12 @@
 class Booking < ApplicationRecord
-    validates :date, :start_time, :end_time, :available, presence: true
-
-    belongs_to :service_session
-
+    # Associations
+    belongs_to :availability_block
+    belongs_to :user
     has_one :hold, dependent: :destroy
 
+    # Validations
+    validates :start_time, :end_time, :available, presence: true
+    
     def book_appointment
         if self.available
             self.update(available: false)
