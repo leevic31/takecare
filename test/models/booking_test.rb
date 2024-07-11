@@ -2,12 +2,6 @@ require "test_helper"
 
 class BookingTest < ActiveSupport::TestCase
   setup do
-    # @booking = Booking.new(
-    #   available: true,
-    #   start_time: "2024-05-04 13:45:12",
-    #   end_time: "2024-05-04 13:45:12",
-    #   date: "2024-05-04"
-    # )
     @booking = FactoryBot.create(:booking)
   end
 

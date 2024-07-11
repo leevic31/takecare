@@ -5,8 +5,6 @@ class AvailabilityBlocksController < ApplicationController
         if @availability_block.save
             render json: @availability_block, status: :created
         else
-            puts "CAREATE"
-            p @availability_block.errors
             render json: @availability_block.errors, status: :unprocessable_entity
         end
     end
