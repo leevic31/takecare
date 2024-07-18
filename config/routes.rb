@@ -25,4 +25,6 @@ Rails.application.routes.draw do
   resources :staff_members
 
   resources :availability_blocks, only: [:create]
+
+  resources :booking_managements, only: [:create, :destroy]
 end

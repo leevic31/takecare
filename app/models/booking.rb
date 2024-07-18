@@ -7,15 +7,11 @@ class Booking < ApplicationRecord
     # Validations
     validates :start_time, :end_time, :available, presence: true
     
-    def book_appointment
-        if self.available
-            self.update(available: false)
-        end
+    def confirm_booking
+        self.update_columns(available: false) if self.available
     end
 
-    def cancel_appointment
-        if !self.available
-            self.update(available: true)
-        end
+    def cancel_booking
+        self.update_columns(available: true) if !self.available
     end
 end
