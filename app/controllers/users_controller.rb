@@ -10,6 +10,10 @@ class UsersController < ApplicationController
         end
     end
 
+    def me
+        render json: current_user
+    end
+
     private
 
     def user_params

@@ -17,17 +17,12 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     end
 
     test "should get current user info when authenticated" do
-        # @user = FactoryBot.create(:user)
-        # sign_in @user
+        @user = FactoryBot.create(:user)
+        @token = ApplicationController.new.encode_token(user_id: @user.id)
 
+        get users_me_url, headers: { Authorization: "Bearer #{@token}" }, as: :json
 
-        # get users_me_url, headers: { Authorization: "Bearer #{@token}" }, as: :json
-
-        # puts "REQUEST URL: #{users_me_url}"
-        # puts "REQUEST HEADERS: #{request.headers.inspect}"
-        # puts "RESPONSE BODY: #{response.body}"
-
-        # response_data = JSON.parse(response.body)
-        # assert_equal @user.email, response_data['email']
+        response_data = JSON.parse(response.body)
+        assert_equal @user.email, response_data['email']
     end
 end
