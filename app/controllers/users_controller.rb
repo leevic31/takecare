@@ -1,20 +1,13 @@
 class UsersController < ApplicationController    
     def create
-        @user = User.new(user_params)
+        user = User.new(user_params)
 
-        if @user.save
-            render json: { 
-                token: JWT.encode({ user_id: @user.id }, 
-                    Rails.application.credentials.devise_jwt_secret_key) 
-            }, 
-            status: :created
+        if user.save
+            token = encode_token(user_id: user.id)
+            render json: { token: token }, status: :created
         else
-            render json: @user.errors, status: :unprocessable_entity
+            render json: user.errors, status: :unprocessable_entity
         end
-    end
-
-    def me
-        render json: current_user
     end
 
     private

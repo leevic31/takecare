@@ -1,10 +1,6 @@
 require 'test_helper'
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
-    setup do
-
-    end
-
     test "should create user" do
         assert_difference("User.count") do
             post users_url, 
@@ -21,8 +17,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     end
 
     test "should get current user info when authenticated" do
-        @user = FactoryBot.create(:user)
-        sign_in @user
+        # @user = FactoryBot.create(:user)
+        # sign_in @user
 
 
         # get users_me_url, headers: { Authorization: "Bearer #{@token}" }, as: :json
