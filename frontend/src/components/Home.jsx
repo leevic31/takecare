@@ -1,4 +1,4 @@
-import { Outlet, Link} from "react-router-dom";
+import { Outlet, Link, useNavigate } from "react-router-dom";
 import { Button, Theme } from '@radix-ui/themes';
 import { PersonIcon } from '@radix-ui/react-icons';
 import { useEffect, useState } from "react";
@@ -6,14 +6,12 @@ import axios from 'axios';
 
 export default function Home() {
   const [currentUser, setCurrentUser] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCurrentUser = async () => {
       const token = localStorage.getItem('authToken');
       const url = "http://localhost:3000/users/me"
-
-      console.log("TOKEN")
-      console.log(token)
       
       if (token) {
         try {
@@ -36,25 +34,37 @@ export default function Home() {
     fetchCurrentUser();
   }, []);
 
+  const handleLogout = () => {
+    localStorage.removeItem('authToken');
+    setCurrentUser(null);
+    navigate('/signin');
+  }
+
   return (
     <>
         <Theme appearance="dark" accentColor="violet">
           <Link to="/organizations" className="text-3xl text-indigo-700 font-bold absolute left-0 top-0">Takecare</Link>
           
+          { currentUser ? (
+            <Button onClick={handleLogout}>
+              <PersonIcon />
+              Logout
+            </Button>
+          ) : (
           <Button>
             <PersonIcon />
             <Link to="/signin">
               Sign in
             </Link>
           </Button>
-          
+          )}
+
           <Outlet />
 
           <div>
             {currentUser ? (
               <div>
                 <h2>Welcome, {currentUser.email}</h2>
-                {/* Display other user information */}
               </div>
             ) : (
               <p>Loading...</p>

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, Outlet } from "react-router-dom";
 import { Text, TextField, Button, Theme, Box } from '@radix-ui/themes';
 import { useState } from "react";
 
@@ -11,16 +11,27 @@ export default function SignIn() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const url = "http://localhost:3000/sign_in"
-        axios.post(url, {email: email, password: password}).then(response => {
-            console.log(response)
-        })
-        navigate("/")
+        const url = "http://localhost:3000/login"
+        
+        try {
+            const response = await axios.post(url, {
+                email: email, 
+                password: password
+            });
+            console.log('User signed-in:', response.data);            
+            const token = response.data.token
+            localStorage.setItem('authToken', token);
+            navigate("/")
+        } catch (error) {
+            console.log('Signup error:', error);
+        }
     }
     
     return (
         <>
             <Theme appearance="dark" accentColor="violet">
+                <Link to="/" className="text-3xl text-indigo-700 font-bold absolute left-0 top-0">Takecare</Link>
+
                 <Text size="9">Sign in</Text>
                 <Box maxWidth="200px">
                     <form onSubmit={handleSubmit}>
