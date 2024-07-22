@@ -27,5 +27,8 @@ module Takecare
     # config.eager_load_paths << Rails.root.join("extras")
 
     config.active_job.queue_adapter = :delayed_job
+
+    config.session_store :disabled
+    config.middleware.delete ActionDispatch::Session::CookieStore
   end
 end

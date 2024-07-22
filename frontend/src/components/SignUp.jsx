@@ -12,11 +12,26 @@ export default function SignUp() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const url = "http://localhost:3000/sign_up"
-        axios.post(url, {email: email, password: password, password_confirmation: password_confirmation}).then(response => {
-            console.log(response)
-        })
-        navigate("/")
+        const url = "http://localhost:3000/users"
+
+        try {
+            const response = await axios.post(url, {
+                user: {
+                    email: email,
+                    password: password,
+                    password_confirmation: password_confirmation
+                }
+            });
+            console.log('User registered:', response.data);
+
+            const token = response.data.token
+            // Store the token in localStorage (or sessionStorage)
+            localStorage.setItem('authToken', token);
+
+            navigate("/");
+        } catch (error) {
+            console.error('Signup error:', error);
+        }
     }
 
     return (
@@ -56,6 +71,8 @@ export default function SignUp() {
                         </label>
                         <br></br>
                         <Button>Sign up</Button>
+                        <div>leevic31@gmail.com</div>
+                        <div>starcraftstarcraft</div>
                     </form>
                 </Box>
 

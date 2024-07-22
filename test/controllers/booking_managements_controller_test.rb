@@ -1,8 +1,6 @@
 require "test_helper"
 
 class BookingManagementsControllerTest < ActionDispatch::IntegrationTest
-  include Devise::Test::IntegrationHelpers
-
   setup do
     @admin_role = FactoryBot.create(:role, :admin)
     @admin_user = FactoryBot.create(:user)

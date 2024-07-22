@@ -1,8 +1,6 @@
 require "test_helper"
 
 class OrganizationsControllerTest < ActionDispatch::IntegrationTest
-  include Devise::Test::IntegrationHelpers
-
   setup do
     @organization = FactoryBot.create(:organization)
 

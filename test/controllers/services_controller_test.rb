@@ -1,8 +1,6 @@
 require "test_helper"
 
 class ServicesControllerTest < ActionDispatch::IntegrationTest
-  include Devise::Test::IntegrationHelpers
-
   setup do
     @service = FactoryBot.create(:service)
 

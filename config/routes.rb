@@ -1,9 +1,6 @@
 Rails.application.routes.draw do
-  devise_scope :user do
-    post '/auth/sign_in', to: 'sessions#create'
-  end
-
-  devise_for :users, skip: [:sessions]
+  get '/users/me', to: 'users#me'
+  resources :users, only: [:create, :show]
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
