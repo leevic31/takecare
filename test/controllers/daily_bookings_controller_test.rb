@@ -2,7 +2,6 @@ require "test_helper"
 
 class DailyBookingsControllerTest < ActionDispatch::IntegrationTest
     setup do
-        # @booking = FactoryBot.create(:booking)
         @availability_blocks = FactoryBot.create(:availability_block)
     end
     
