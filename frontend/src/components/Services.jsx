@@ -11,9 +11,15 @@ export default function Services( { id }) {
     const [serviceType, setServiceType] = useState();
     const [open, setOpen] = useState(false);
 
+    const authToken = localStorage.getItem('authToken');
+
     const getServices = () => {
         const url = `http://localhost:3000/organizations/${id}/services`
-        axios.get(url).then(response => {
+        axios.get(url, {
+            headers: {
+                Authorization: `Bearer ${authToken}`
+            }
+        }).then(response => {
             setServices(Object.entries(response.data));
         })
     }
@@ -105,7 +111,7 @@ export default function Services( { id }) {
                                 </Table.Body>
                             </Table.Root>
                         </Box>
-                        <Box>
+                        {/* <Box>
                             <Flex direction="column" gap="3">
                                 {services.map(service => (
                                     <Box>
@@ -120,7 +126,7 @@ export default function Services( { id }) {
                                     </Box>
                                 ))}
                             </Flex>
-                        </Box>
+                        </Box> */}
                     </Grid>
                 </Card>
             </Box>

@@ -11,10 +11,15 @@ export default function Sessions({ organization_id, service_id }) {
     const [duration, setDuration] = useState();
     const [price, setPrice] = useState();
 
+    const authToken = localStorage.getItem('authToken');
 
     const getSessions = () => {
         const url = `http://localhost:3000/organizations/${organization_id}/services/${service_id}/sessions`
-        axios.get(url).then(response => {
+        axios.get(url, {
+            headers: {
+                Authorization: `Bearer ${authToken}`
+            }
+        }).then(response => {
             setSessions(Object.entries(response.data));
         })
     }

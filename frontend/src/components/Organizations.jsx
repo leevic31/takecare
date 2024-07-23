@@ -8,11 +8,17 @@ export default function Organizations() {
     const [name, setName] = useState();
     const [open, setOpen] = useState(false);
 
+    const authToken = localStorage.getItem('authToken');
+
     const getOrganizations = () => {
         const url = "http://localhost:3000/organizations"
-        axios.get(url).then(response => {
+        axios.get(url, {
+            headers: {
+                Authorization: `Bearer ${authToken}`
+            }
+        }).then(response => {
             setOrganizations(Object.entries(response.data));
-        })
+        });
     }
 
     useEffect(() => {
@@ -35,7 +41,9 @@ export default function Organizations() {
 
     return (
         <>
-            <Dialog.Root open={open} onOpenChange={setOpen}>
+            <div>test</div>
+
+            {/* <Dialog.Root open={open} onOpenChange={setOpen}>
                 <Dialog.Trigger asChild>
                 <Button>Add organization</Button>
                 </Dialog.Trigger>
@@ -62,7 +70,7 @@ export default function Organizations() {
                                 </Flex>
                             </form>
                     </Dialog.Content>
-            </Dialog.Root>
+            </Dialog.Root> */}
 
             {organizations.map(organization => (
                 <div className="py-5">
@@ -76,7 +84,7 @@ export default function Organizations() {
                 </div>
             ))}
             
-            <Outlet />
+            {/* <Outlet /> */}
         </>
     )
 }
