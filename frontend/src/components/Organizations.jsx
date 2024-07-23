@@ -1,6 +1,5 @@
 import { Link, Outlet } from "react-router-dom";
 import axios from 'axios';
-import { Flex, Text, Dialog, Button, TextField } from '@radix-ui/themes';
 import { useEffect, useState } from "react";
 
 export default function Organizations() {

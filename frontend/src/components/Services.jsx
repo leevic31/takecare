@@ -4,7 +4,6 @@ import { PlusCircledIcon } from '@radix-ui/react-icons';
 import { Table, Flex, Text, Grid, Card, Box, Dialog, Button, TextField, Separator } from '@radix-ui/themes';
 import EditServiceForm from './EditServiceForm';
 import DeleteService from './DeleteService';
-import Sessions from './Sessions';
 
 export default function Services( { id }) {
     const [services, setServices] = useState([]);

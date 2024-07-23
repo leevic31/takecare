@@ -1,5 +1,5 @@
 import { Outlet, Link, useNavigate } from "react-router-dom";
-import { Button, Theme } from '@radix-ui/themes';
+import { Button, Theme, Flex, Box } from '@radix-ui/themes';
 import { PersonIcon } from '@radix-ui/react-icons';
 import { useEffect, useState } from "react";
 import axios from 'axios';
@@ -26,7 +26,6 @@ export default function Home() {
         
         } catch (error) {
           console.error('Error fetching current user:', error);
-          // Handle error (show message, redirect, etc.)
         }
       }
     };
@@ -43,21 +42,29 @@ export default function Home() {
   return (
     <>
         <Theme appearance="dark" accentColor="violet">
-          <Link to="/organizations" className="text-3xl text-indigo-700 font-bold absolute left-0 top-0">Takecare</Link>
-          
-          { currentUser ? (
-            <Button onClick={handleLogout}>
-              <PersonIcon />
-              Logout
-            </Button>
-          ) : (
-          <Button>
-            <PersonIcon />
-            <Link to="/signin">
-              Sign in
-            </Link>
-          </Button>
-          )}
+
+          <Flex direction="row" justify="between" align="center">
+            <Box>
+              <Link to="/" className="text-3xl text-indigo-700 font-bold">Takecare</Link>
+            </Box>
+            <Box>
+              { currentUser ? (
+                <div>
+                <Button onClick={handleLogout}>
+                  <PersonIcon />
+                  Logout
+                </Button>
+                </div>
+              ) : (
+                <Button>
+                <PersonIcon />
+                <Link to="/signin">
+                  Sign in
+                </Link>
+              </Button>
+              )}
+            </Box>
+          </Flex>
 
           <Outlet />
 
@@ -65,6 +72,7 @@ export default function Home() {
             {currentUser ? (
               <div>
                 <h2>Welcome, {currentUser.email}</h2>
+                <Link to="/organizations" className="text-3xl text-indigo-700 font-bold">Organizations</Link>
               </div>
             ) : (
               <p>Loading...</p>
