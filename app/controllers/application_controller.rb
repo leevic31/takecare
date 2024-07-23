@@ -10,12 +10,22 @@ class ApplicationController < ActionController::API
   end
 
   def encode_token(payload)
+    payload.reverse_merge!(exp: 15.minutes.from_now.to_i)
     JWT.encode(payload, jwt_secret_key, 'HS256')
   end
 
   def decode_token(token)
-    JWT.decode(token, jwt_secret_key, true, { algorithm: 'HS256' })
-  rescue JWT::DecodeError
+    decoded = JWT.decode(token, jwt_secret_key, true, { algorithm: 'HS256' })
+    decoded_payload = decoded.first
+
+    if Time.at(decoded_payload['exp']) < Time.now
+      raise JWT::ExpiredSignature, 'Signature has expired'
+    end
+  
+    decoded_payload
+  rescue JWT::ExpiredSignature => e
+    nil
+  rescue JWT::DecodeError => e
     nil
   end
 
