@@ -11,12 +11,10 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
 
     @availability_block = FactoryBot.create(:availability_block)
     @booking = FactoryBot.create(:booking)
-
-    sign_in @admin_user
   end
 
   test "should get index" do
-    get bookings_url, as: :json
+    get bookings_url, headers: auth_headers(@admin_user), as: :json
     assert_response :success
   end
 
@@ -31,7 +29,8 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
           user_id: @admin_user.id,
           availability_block_id: @availability_block.id
         },
-      }, 
+      },
+      headers: auth_headers(@admin_user),
       as: :json 
     end
   
@@ -46,7 +45,8 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
     
     assert_no_difference 'Booking.count' do
       post bookings_url, 
-        params: { booking: invalid_booking_params }, 
+        params: { booking: invalid_booking_params },
+        headers: auth_headers(@admin_user),
         as: :json
       
       assert_response :unprocessable_entity
@@ -78,6 +78,7 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
           end_time: invalid_end_time
         }
       },
+      headers: auth_headers(@admin_user),
       as: :json
 
     assert_response :unprocessable_entity
@@ -86,6 +87,7 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
   test "should delete booking" do
     assert_difference("Booking.count", -1) do
       delete booking_url(@booking),
+      headers: auth_headers(@admin_user),
       as: :json
     end
 
