@@ -16,8 +16,6 @@ Rails.application.routes.draw do
     resources :services
   end
   
-  get '/daily/bookings/:date', to: 'daily_bookings#index', as: :daily_bookings
-
   resources :bookings do
     resource :hold, only: [:create, :destroy]
   end
@@ -27,4 +25,10 @@ Rails.application.routes.draw do
   resources :availability_blocks, only: [:create]
 
   resources :booking_managements, only: [:create, :destroy]
+
+  resources :bookings_by_day_and_hour, only: [:index] do
+    collection do
+      get ':date/:hour', to: 'bookings_by_day_and_hour#index', as: :by_day_and_hour
+    end
+  end
 end
