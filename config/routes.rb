@@ -26,9 +26,9 @@ Rails.application.routes.draw do
 
   resources :booking_managements, only: [:create, :destroy]
 
-  resources :bookings_by_day_and_hour, only: [:index] do
+  resources :bookings_by_date, only: [:index] do
     collection do
-      get ':date/:hour', to: 'bookings_by_day_and_hour#index', as: :by_day_and_hour
+      get ':date', to: 'bookings_by_date#index', as: :by_date
     end
   end
 end
