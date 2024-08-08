@@ -3,6 +3,7 @@ import { Button, Theme, Flex, Box } from '@radix-ui/themes';
 import { PersonIcon } from '@radix-ui/react-icons';
 import { useEffect, useState } from "react";
 import axios from 'axios';
+import Calendar from "./Calendar";
 
 export default function Home() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -20,10 +21,7 @@ export default function Home() {
               Authorization: `Bearer ${token}`,
             },
           });
-          setCurrentUser(response.data);
-
-          console.log(response)
-        
+          setCurrentUser(response.data);        
         } catch (error) {
           console.error('Error fetching current user:', error);
         }
@@ -78,6 +76,8 @@ export default function Home() {
               <p>Loading...</p>
             )}
           </div>
+
+          < Calendar />
 
         </Theme>
     </>
