@@ -1,21 +1,41 @@
 import React from 'react'
 import TimeBlock from "./TimeBlock";
+import { useEffect, useState } from "react";
+import axios from 'axios';
 
 export default function DayBlock() {
-  const times = [];
-  for (let hour = 8; hour <= 20; hour++) {
-    times.push(`${hour}:00`)
+  const authToken = localStorage.getItem('authToken');
+
+  const [bookings, setBookings] = useState([]);
+
+  const getBookings = () => {
+    const url = "http://localhost:3000/bookings_by_date/2024-08-01"
+
+    axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${authToken}`
+      }
+    }).then(response => {
+      setBookings(Object.entries(response.data));
+    });
   }
+
+  useEffect(() => {
+    getBookings();
+  }, []);
+
+  console.log(bookings)
 
   return (
     <div className='day-block flex w-56'>
       <div className='times flex flex-col items-end w-16'>
-        {times.map((time) => (
-          <div key={time} className='time p-2'>
-            {time}
+        {/* {bookings.map((booking) => (
+          <div key={booking[0]} className='time p-2'>
+            {booking[0]}
           </div>
-        ))}
+        ))} */}
       </div>
+
       <div className='day-container flex-1 border border-gray-300 max-w-xs'>
         <div className='time-blocks'>
           <TimeBlock time="8am" />
