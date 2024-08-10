@@ -1,6 +1,6 @@
 class StaffMembersController < ApplicationController
   def create
-    result = CreateStaffService.new(user_params).call  
+    result = CreateStaffService.new(user_params: user_params).call  
     if result.is_a?(User)
       render json: result, status: :created
     else
