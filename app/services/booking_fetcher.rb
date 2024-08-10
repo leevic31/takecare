@@ -10,7 +10,7 @@ class BookingFetcher
   private
 
   def fetch_bookings
-    Booking.where(start_time: @date.beginning_of_day..@date.end_of_day).order(:start_time)
+    Booking.includes(:user).where(start_time: @date.beginning_of_day..@date.end_of_day).order(:start_time)
   end
 end
 

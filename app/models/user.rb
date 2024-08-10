@@ -9,6 +9,9 @@ class User < ApplicationRecord
   # Callbacks
   after_create :assign_default_role
 
+  # Validations
+  validates :email, :first_name, :last_name, presence: true
+
   private
 
   def assign_default_role
