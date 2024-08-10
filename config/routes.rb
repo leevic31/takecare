@@ -20,7 +20,8 @@ Rails.application.routes.draw do
     resource :hold, only: [:create, :destroy]
   end
   
-  resources :staff_members
+  resources :staff_members, only: [:create]
+  resources :clients, only: [:create]
 
   resources :availability_blocks, only: [:create]
 
