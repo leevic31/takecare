@@ -7,7 +7,9 @@ class StaffMembersControllerTest < ActionDispatch::IntegrationTest
         user: {
           email: 'test@example.com',
           password: 'password',
-          password_confirmation: 'password'
+          password_confirmation: 'password',
+          first_name: "bob",
+          last_name: "smith"
         }
       },
       as: :json
