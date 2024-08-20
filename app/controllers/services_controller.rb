@@ -2,9 +2,6 @@ class ServicesController < ApplicationController
   before_action :set_organization
   before_action :set_service, only: [:update, :destroy]
 
-  # TODO figure out the right way to avoid this
-  # skip_before_action :verify_authenticity_token, only: [:create, :update, :destroy]
-
   def index
     @services = @organization.services
     authorize Service

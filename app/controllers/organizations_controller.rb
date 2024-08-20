@@ -1,7 +1,4 @@
 class OrganizationsController < ApplicationController
-  # TODO figure out the right way to avoid this
-  # skip_before_action :verify_authenticity_token, only: [:create]
-
   before_action :set_organization, only: [:update, :destroy]
 
   def index
