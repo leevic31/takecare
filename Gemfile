@@ -89,3 +89,5 @@ gem 'daemons'
 gem 'jwt'
 
 gem 'dotenv-rails', groups: [:development, :test]
+
+gem 'dry-monads'

@@ -32,4 +32,6 @@ Rails.application.routes.draw do
       get ':date', to: 'bookings_by_date#index', as: :by_date
     end
   end
+  
+  resources :reschedule_bookings, only: [:create]
 end

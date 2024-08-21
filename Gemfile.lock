@@ -115,6 +115,13 @@ GEM
       dotenv (= 3.1.2)
       railties (>= 6.1)
     drb (2.2.1)
+    dry-core (1.0.1)
+      concurrent-ruby (~> 1.0)
+      zeitwerk (~> 2.6)
+    dry-monads (1.6.0)
+      concurrent-ruby (~> 1.0)
+      dry-core (~> 1.0, < 2)
+      zeitwerk (~> 2.6)
     e2mmap (0.1.0)
     erubi (1.12.0)
     factory_bot (6.4.6)
@@ -335,6 +342,7 @@ DEPENDENCIES
   debug
   delayed_job_active_record
   dotenv-rails
+  dry-monads
   factory_bot_rails
   faker
   importmap-rails
