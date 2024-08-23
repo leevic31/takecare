@@ -1,5 +1,5 @@
 class ServicesController < ApplicationController
-  before_action :set_organization, only: [:idnex, :create]
+  before_action :set_organization
   before_action :set_service, only: [:update, :destroy]
 
   def index

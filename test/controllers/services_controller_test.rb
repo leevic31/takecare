@@ -7,18 +7,23 @@ class ServicesControllerTest < ActionDispatch::IntegrationTest
     @admin_role = FactoryBot.create(:role, :admin)
     @admin_user = FactoryBot.create(:user)
     @admin_user.add_role(@admin_role.name)
-
-    sign_in @admin_user
   end
 
   test "should get index" do
-    get organization_services_url(organization_id: @service.organization), as: :json
+    get organization_services_url(
+      organization_id: @service.organization,
+      id: @service.id
+    ), 
+    headers: auth_headers(@admin_user), 
+    as: :json
+
     assert_response :success
   end
 
   test "should create service" do
     assert_difference("Service.count") do
       post organization_services_url(organization_id: @service.organization),
+      headers: auth_headers(@admin_user),
       params: {
         service: {
           service_type: "massage",
@@ -37,6 +42,7 @@ class ServicesControllerTest < ActionDispatch::IntegrationTest
       id: @service.id,
       organization_id: @service.organization
     ),
+    headers: auth_headers(@admin_user),
     params: {
       service: {
         service_type: updated_service_type
@@ -55,6 +61,7 @@ class ServicesControllerTest < ActionDispatch::IntegrationTest
         id: @service.id,
         organization_id: @service.organization
       ),
+      headers: auth_headers(@admin_user),
       as: :json
     end
 

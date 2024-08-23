@@ -7,8 +7,6 @@ class BookingManagementsControllerTest < ActionDispatch::IntegrationTest
     @admin_user.add_role(@admin_role.name)
 
     @booking = FactoryBot.create(:booking)
-
-    sign_in @admin_user
   end
   
   test "should confirm a booking" do
@@ -18,6 +16,7 @@ class BookingManagementsControllerTest < ActionDispatch::IntegrationTest
         booking_id: @booking.id 
       },
     },
+    headers: auth_headers(@admin_user),
     as: :json
 
     assert_response 200
@@ -30,6 +29,7 @@ class BookingManagementsControllerTest < ActionDispatch::IntegrationTest
 
     delete booking_management_url(@booking.id),
       params: { booking_management: { booking_id: @booking.id} },
+      headers: auth_headers(@admin_user),
       as: :json
 
     assert_response 200

@@ -7,18 +7,17 @@ class OrganizationsControllerTest < ActionDispatch::IntegrationTest
     @admin_role = FactoryBot.create(:role, :admin)
     @admin_user = FactoryBot.create(:user)
     @admin_user.add_role(@admin_role.name)
-    
-    sign_in @admin_user
   end
 
   test "should get index" do
-    get organizations_url, as: :json
+    get organizations_url, headers: auth_headers(@admin_user), as: :json
     assert_response :success
   end
 
   test "should create organization" do
     assert_difference("Organization.count") do
       post organizations_url,
+      headers: auth_headers(@admin_user),
       params: {
         organization: {
           name: "test org"
@@ -38,6 +37,7 @@ class OrganizationsControllerTest < ActionDispatch::IntegrationTest
     assert_no_difference "Organization.count" do
       post organizations_url,
         params: { organization: invalid_organization_params },
+        headers: auth_headers(@admin_user),
         as: :json
 
       assert_response :unprocessable_entity
@@ -53,6 +53,7 @@ class OrganizationsControllerTest < ActionDispatch::IntegrationTest
           name: updated_name
         }
       },
+      headers: auth_headers(@admin_user),
       as: :json
     @organization.reload
 
@@ -66,6 +67,7 @@ class OrganizationsControllerTest < ActionDispatch::IntegrationTest
       params: {
         organization: { name: invalid_name }
       },
+      headers: auth_headers(@admin_user),
       as: :json
 
     assert_response :unprocessable_entity
@@ -74,6 +76,7 @@ class OrganizationsControllerTest < ActionDispatch::IntegrationTest
   test "should delete organization" do    
     assert_difference("Organization.count", -1) do
       delete organization_url(@organization),
+      headers: auth_headers(@admin_user),
       as: :json
     end
 
