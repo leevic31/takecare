@@ -2,6 +2,7 @@ class Booking < ApplicationRecord
     # Associations
     belongs_to :availability_block
     belongs_to :user
+    belongs_to :service
     has_one :hold, dependent: :destroy
 
     # Validations

@@ -4,4 +4,5 @@ class Service < ApplicationRecord
     
     # Associations
     belongs_to :organization
+    has_many :booking
 end

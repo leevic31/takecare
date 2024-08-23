@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_10_182828) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_23_181751) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -31,7 +31,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_10_182828) do
     t.datetime "updated_at", null: false
     t.integer "availability_block_id", null: false
     t.integer "user_id", null: false
+    t.bigint "service_id", null: false
     t.index ["availability_block_id"], name: "index_bookings_on_availability_block_id"
+    t.index ["service_id"], name: "index_bookings_on_service_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end
 
@@ -103,6 +105,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_10_182828) do
 
   add_foreign_key "availability_blocks", "users"
   add_foreign_key "bookings", "availability_blocks"
+  add_foreign_key "bookings", "services"
   add_foreign_key "bookings", "users"
   add_foreign_key "holds", "bookings"
   add_foreign_key "services", "organizations"
