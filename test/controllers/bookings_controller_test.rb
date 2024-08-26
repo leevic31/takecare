@@ -27,7 +27,8 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
           end_time: Time.now + 1.hour, 
           date: Date.new(2023, 6, 1),
           user_id: @admin_user.id,
-          availability_block_id: @availability_block.id
+          availability_block_id: @availability_block.id,
+          service_id: @service.id
         },
       },
       headers: auth_headers(@admin_user),

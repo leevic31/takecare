@@ -2,6 +2,7 @@ class AvailabilityBlock < ApplicationRecord
   # Associations
   belongs_to :user
   has_many :bookings, dependent: :destroy
+  belongs_to :service
   
   # Validations
   validates :start_time, :end_time, presence: true
