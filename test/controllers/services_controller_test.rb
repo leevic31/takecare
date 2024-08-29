@@ -27,7 +27,8 @@ class ServicesControllerTest < ActionDispatch::IntegrationTest
       params: {
         service: {
           service_type: "massage",
-          organization: @organization
+          organization: @organization,
+          durations: ["60"]
         },
       },
       as: :json

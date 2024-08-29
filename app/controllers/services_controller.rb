@@ -38,7 +38,7 @@ class ServicesController < ApplicationController
   private
 
   def service_params
-    params.require(:service).permit(:service_type)
+    params.require(:service).permit(:service_type, durations: [])
   end
 
   def set_organization

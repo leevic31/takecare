@@ -12,6 +12,6 @@ class AvailabilityBlocksController < ApplicationController
     private
 
     def availability_block_params
-        params.require(:availability_block).permit(:start_time, :end_time, :user_id)
+        params.require(:availability_block).permit(:start_time, :end_time, :user_id, :service_id)
     end
 end

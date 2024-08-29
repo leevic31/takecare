@@ -2,6 +2,7 @@ require "test_helper"
 
 class AvailabilityBlocksControllerTest < ActionDispatch::IntegrationTest
   setup do
+    @service = FactoryBot.create(:service)
     @staff_member_role = FactoryBot.create(:role, :staff_member)
     @staff_member_user = FactoryBot.create(:user)
     @staff_member_user.add_role(@staff_member_role.name)
@@ -14,7 +15,8 @@ class AvailabilityBlocksControllerTest < ActionDispatch::IntegrationTest
         availability_block: {
           start_time: DateTime.now,
           end_time: DateTime.now + 5.hours,
-          user_id: @staff_member_user.id
+          user_id: @staff_member_user.id,
+          service_id: @service.id
         },
       },
       as: :json

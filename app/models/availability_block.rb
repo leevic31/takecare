@@ -13,6 +13,8 @@ class AvailabilityBlock < ApplicationRecord
   private
 
   def call_create_booking_slots
-    BookingSlotCreator.create_booking_slots(self)
+    service.durations.each do |duration|
+      BookingSlotCreator.create_booking_slots(self, duration.to_i.minutes)
+    end
   end
 end
