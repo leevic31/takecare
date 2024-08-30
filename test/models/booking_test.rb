@@ -25,13 +25,13 @@ class BookingTest < ActiveSupport::TestCase
   end
 
   test "book_appointment should change availablity of booking from true to false" do
-    @booking.book_appointment
+    @booking.confirm_booking
     assert_equal false, @booking.available
   end
   
   test "cancel_appointment should change availability of booking from false to true" do
     @booking.available = false
-    @booking.cancel_appointment
+    @booking.cancel_booking
     assert_equal true, @booking.available
   end
 end

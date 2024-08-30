@@ -25,8 +25,7 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
         booking: { 
           start_time: Time.now, 
           end_time: Time.now + 1.hour, 
-          date: Date.new(2023, 6, 1),
-          user_id: @admin_user.id,
+          staff_member_id: @admin_user.id,
           availability_block_id: @availability_block.id,
           service_id: @service.id
         },

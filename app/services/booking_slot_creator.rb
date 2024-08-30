@@ -6,7 +6,7 @@ class BookingSlotCreator
             booking = availability_block.bookings.create!(
                 start_time: current_time,
                 end_time: current_time + duration,
-                user: availability_block.user,
+                staff_member: availability_block.user,
                 service: availability_block.service
             )
             current_time += duration
