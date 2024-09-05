@@ -25,7 +25,6 @@ export default function Calendar() {
 
     const monthStart = startOfMonth(currentMonth);
     const monthEnd = endOfMonth(currentMonth);
-    // const daysInMonth = eachDayOfInterval({ start: monthStart, end: monthEnd });
 
     const startOfCalendar = startOfWeek(monthStart);
     const endOfCalendar = endOfWeek(monthEnd);
@@ -50,7 +49,7 @@ export default function Calendar() {
             getBookings(selectedDate);
         }
     }, [selectedDate]);
-
+    
     return (
         <>
             <div className="flex justify-center">
@@ -96,13 +95,13 @@ export default function Calendar() {
                                 bookings.map(booking => (
                                     <div className='p-2'>
                                         <TimeBlock time={format(booking[1].start_time, 'p')} />
+					                    {booking[1].staff_member.first_name}
                                     </div>
                                 ))) : (<p className='text-black'>No bookings for this day</p>)
                             }
                         </div>
                     )}
             </div>
-        
         </>
     );
 };
