@@ -3,6 +3,10 @@ require "test_helper"
 class BookingTest < ActiveSupport::TestCase
   setup do
     @booking = FactoryBot.create(:booking)
+
+    @client_role = FactoryBot.create(:role, :client)
+    @client_user = FactoryBot.create(:user)
+    @client_user.add_role(@client_role.name)
   end
 
   test "should be valid" do
@@ -25,7 +29,9 @@ class BookingTest < ActiveSupport::TestCase
   end
 
   test "book_appointment should change availablity of booking from true to false" do
-    @booking.confirm_booking
+    assert_equal true, @booking.available
+
+    @booking.confirm_booking(@client_user.id)
     assert_equal false, @booking.available
   end
   
@@ -33,5 +39,22 @@ class BookingTest < ActiveSupport::TestCase
     @booking.available = false
     @booking.cancel_booking
     assert_equal true, @booking.available
+  end
+
+  test "booking client_id should belong to the user that confirmed the booking" do
+    assert_nil @booking.client_id
+
+    @booking.confirm_booking(@client_user.id)
+    assert_equal @booking.client_id, @client_user.id
+  end
+
+  test "booking client_id should be nil after cancelling the booking" do
+    @booking.client_id = @client_user.id
+    assert_equal @booking.client_id, @client_user.id
+
+    @booking.available = false
+    @booking.cancel_booking
+
+    assert_nil @booking.client_id
   end
 end

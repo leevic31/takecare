@@ -1,6 +1,5 @@
 FactoryBot.define do
     factory :booking do
-        association :client, factory: :user
         association :staff_member, factory: :user
         association :availability_block
         association :service

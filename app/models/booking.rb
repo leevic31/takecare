@@ -9,11 +9,13 @@ class Booking < ApplicationRecord
     # Validations
     validates :start_time, :end_time, :available, presence: true
     
-    def confirm_booking
-        self.update_columns(available: false) if self.available
+    # Instance Methods
+    def confirm_booking(client_id)
+        self.update_columns(available: false, client_id: client_id) if self.available
     end
 
     def cancel_booking
-        self.update_columns(available: true) if !self.available
+        self.update_columns(available: true, client_id: nil) if !self.available
+        # NOTE: need to delete booking if staff_member is busy with another booking
     end
 end
