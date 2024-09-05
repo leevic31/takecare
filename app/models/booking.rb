@@ -12,6 +12,7 @@ class Booking < ApplicationRecord
     # Instance Methods
     def confirm_booking(client_id)
         self.update_columns(available: false, client_id: client_id) if self.available
+        # NOTE: need to remove available bookings that the staff member has that conflicts with the confirmed booking
     end
 
     def cancel_booking
