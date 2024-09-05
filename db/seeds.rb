@@ -8,6 +8,33 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-Role.create(name: :admin)
-Role.create(name: :client)
-Role.create(name: :staff_member)
+admin_role = Role.find_or_create_by!(name: :admin)
+client_role = Role.find_or_create_by!(name: :client)
+staff_member_role = Role.find_or_create_by!(name: :staff_member)
+
+organization = Organization.find_or_create_by!(name: 'Example Organization')
+
+service = Service.find_or_create_by!(
+  service_type: 'Massage',
+  organization: organization,
+  durations: [60]
+)
+
+staff_member = User.find_or_create_by!(
+  email: 'staff@example.com',
+  password: 'securepassword',
+  password_confirmation: 'securepassword'
+  first_name: 'John',
+  last_name: 'Doe'
+)
+
+staff_member.roles << staff_member_role unless staff_member.roles.include?(staff_member_role)
+
+availability_block = AvailabilityBlock.find_or_create_by!(
+  start_time: Time.zone.now.beginning_of_day + 9.hours,
+  end_time: Time.zone.now.beginning_of_day + 17.hours,
+  user: staff_member,
+  service: service
+)
+
+p 'Seed data created successfully!'
