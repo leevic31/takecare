@@ -1,5 +1,5 @@
 import React from 'react'
-import TimeBlock from "./TimeBlock";
+import Booking from "./Booking";
 import { useEffect, useState } from "react";
 import axios from 'axios';
 
@@ -38,7 +38,7 @@ export default function DayBlock() {
 
       <div className='day-container flex-1 border border-gray-300 max-w-xs'>
         <div className='time-blocks'>
-          <TimeBlock time="8am" />
+          <Booking time="8am" />
         </div>
       </div>  
     </div>

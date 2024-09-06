@@ -39,46 +39,47 @@ export default function Home() {
 
   return (
     <>
-        <Theme appearance="dark" accentColor="violet">
+        <Theme accentColor="violet">
+          <div className="bg-violet-200 min-h-screen">
+              <Flex direction="row" justify="between" align="center">
+                <Box>
+                  <Link to="/" className="text-3xl text-indigo-700 font-bold">Takecare</Link>
+                </Box>
+                <Box>
+                  { currentUser ? (
+                    <div>
+                    <Button onClick={handleLogout}>
+                      <PersonIcon />
+                      Logout
+                    </Button>
+                    </div>
+                  ) : (
+                    <Button>
+                    <PersonIcon />
+                    <Link to="/signin">
+                      Sign in
+                    </Link>
+                  </Button>
+                  )}
+                </Box>
+              </Flex>
 
-          <Flex direction="row" justify="between" align="center">
-            <Box>
-              <Link to="/" className="text-3xl text-indigo-700 font-bold">Takecare</Link>
-            </Box>
-            <Box>
-              { currentUser ? (
-                <div>
-                <Button onClick={handleLogout}>
-                  <PersonIcon />
-                  Logout
-                </Button>
-                </div>
-              ) : (
-                <Button>
-                <PersonIcon />
-                <Link to="/signin">
-                  Sign in
-                </Link>
-              </Button>
-              )}
-            </Box>
-          </Flex>
+              <Outlet />
 
-          <Outlet />
-
-          <div>
-            {currentUser ? (
               <div>
-                <h2>Welcome, {currentUser.email}</h2>
-                <Link to="/organizations" className="text-3xl text-indigo-700 font-bold">Organizations</Link>
+                {currentUser ? (
+                  <div>
+                    <h2>Welcome, {currentUser.email}</h2>
+                    <Link to="/organizations" className="text-3xl text-indigo-700 font-bold">Organizations</Link>
+                  </div>
+                ) : (
+                  <p>Loading...</p>
+                )}
               </div>
-            ) : (
-              <p>Loading...</p>
-            )}
+
+              < Calendar />
+
           </div>
-
-          < Calendar />
-
         </Theme>
     </>
   )

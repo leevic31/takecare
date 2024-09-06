@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { format, startOfMonth, endOfMonth, addMonths, subMonths, eachDayOfInterval, isToday, startOfWeek, endOfWeek } from 'date-fns';
-import TimeBlock from "./TimeBlock";
+import Booking from "./Booking";
 import axios from 'axios';
 import { ChevronLeftIcon, ChevronRightIcon } from '@radix-ui/react-icons';
 
@@ -52,33 +52,33 @@ export default function Calendar() {
     
     return (
         <>
-            <div className="flex justify-center">
-                    <div className="w-full max-w-md  mt-4 p-4 bg-white shadow-lg rounded-lg mr-4">
+            <div className="flex justify-center space-x-4">
+                    <div className="w-full max-w-md h-80 mt-4 p-4 bg-violet-50 shadow-lg rounded-lg mr-4">
                         <header className="flex items-center justify-between mb-4">
                             <button 
                                 onClick={handlePreviousMonth} 
-                                className="p-2 text-black hover:bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center"
+                                className="p-2 text-violet-700 hover:bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center"
                             >
                                 <ChevronLeftIcon />
                             </button>
-                            <h1 className="text-xl font-semibold text-black">{format(currentMonth, 'MMMM yyyy')}</h1>
+                            <h1 className="text-xl font-semibold text-violet-700">{format(currentMonth, 'MMMM yyyy')}</h1>
                             <button 
                                 onClick={handleNextMonth} 
-                                className="p-2 text-black hover:bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center"
+                                className="p-2 text-violet-700 hover:bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center"
                             >
                                 <ChevronRightIcon />
                             </button>
                         </header>
                         <div className="grid grid-cols-7 gap-1 text-center mb-4">
                             {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-                                <div key={day} className="font-semibold text-gray-700">{day}</div>
+                                <div key={day} className="font-semibold text-violet-700">{day}</div>
                             ))}
                         </div>
                         <div className="grid grid-cols-7 gap-1 text-center">
                             {daysInCalendar.map(day => (
                                 <div
                                     key={day}
-                                    className={`p-2 cursor-pointer rounded-full w-8 h-8 flex items-center justify-center ml-3 ${isToday(day) ? 'bg-yellow-200' : ''} ${selectedDate && day.toDateString() === selectedDate.toDateString() ? 'bg-blue-500 text-white' : 'text-gray-500'} hover:bg-gray-200`}
+                                    className={`p-2 cursor-pointer rounded-full w-8 h-8 flex items-center justify-center ml-3 ${isToday(day) ? 'bg-violet-200' : ''} ${selectedDate && day.toDateString() === selectedDate.toDateString() ? 'bg-amber-300 text-violet-500' : 'text-violet-500'} hover:bg-violet-200`}
                                     onClick={() => handleDayClick(day)}
                                 >
                                     {format(day, 'd')}
@@ -88,16 +88,15 @@ export default function Calendar() {
                     </div>
 
                     {selectedDate && (
-                        <div className="mt-4 p-4 bg-gray-100 border border-gray-300 rounded-lg">
-                            <p className="text-black">{format(selectedDate, 'EEEE, MMMM d, yyyy')}</p>
+                        <div className="mt-4 p-4 bg-violet-50 border border-gray-300 rounded-lg">
+                            <p className="text-violet-700">{format(selectedDate, 'EEEE, MMMM d, yyyy')}</p>
 
                             {bookings.length > 0 ? (
                                 bookings.map(booking => (
                                     <div className='p-2'>
-                                        <TimeBlock time={format(booking[1].start_time, 'p')} />
-					                    {booking[1].staff_member.first_name}
+                                        <Booking time={format(booking[1].start_time, 'p')} staff_member={booking[1].staff_member.first_name} />
                                     </div>
-                                ))) : (<p className='text-black'>No bookings for this day</p>)
+                                ))) : (<p className='text-violet-700'>No bookings for this day</p>)
                             }
                         </div>
                     )}
