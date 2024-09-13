@@ -1,9 +1,51 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Box, Text, Flex } from '@radix-ui/themes';
 import * as AlertDialog from '@radix-ui/react-alert-dialog';
+import axios from 'axios'
 
-export default function Booking({ time, staff_member }) {
+import { useUser } from '../contexts/UserContext';
+
+export default function Booking({ time, staff_member, bookingId }) {
+  const [isLoading, setIsLoading] = useState(false); // State to manage loading status
+  const [error, setError] = useState(null); // State to manage errors
+
+  const token = localStorage.getItem('authToken');
+  const { user, loading } = useUser();
+
+  const handleConfirm = async () => {
+    setIsLoading(true); // Set loading state to true
+    setError(null); // Clear previous errors
+
+    try {
+      if (!user) {
+        throw new Error('User not logged in');
+      }
+
+      const response = await axios.post('http://localhost:3000/booking_managements', {
+        booking_management: {
+          booking_id: bookingId,
+          client_id: user.id,
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      console.log('Booking confirmed:', response.data);
+
+    } catch (err) {
+      console.error('Error confirming booking', err);
+      setError('Unable to confirm booking'); // Set error state
+    } finally {
+      setIsLoading(false); // Set loading state to false
+    }
+  }
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <>
       <Box>        
@@ -38,7 +80,7 @@ export default function Booking({ time, staff_member }) {
                   </button>
                 </AlertDialog.Cancel>
                 <AlertDialog.Action asChild>
-                  <button className="text-white bg-violet-700 hover:bg-violet-200 focus:shadow-mauve7 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none outline-none focus:shadow-[0_0_0_2px]">
+                  <button onClick={handleConfirm} className="text-white bg-violet-700 hover:bg-violet-200 focus:shadow-mauve7 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none outline-none focus:shadow-[0_0_0_2px]">
                     Confirm
                   </button>
                 </AlertDialog.Action>
@@ -55,4 +97,6 @@ export default function Booking({ time, staff_member }) {
 
 Booking.propTypes = {
   time: PropTypes.string.isRequired,
+  staff_member: PropTypes.string.isRequired,
+  bookingId: PropTypes.number.isRequired,
 };

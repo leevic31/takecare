@@ -4,6 +4,8 @@ import Booking from "./Booking";
 import axios from 'axios';
 import { ChevronLeftIcon, ChevronRightIcon } from '@radix-ui/react-icons';
 
+import { UserProvider } from '../contexts/UserContext';
+
 export default function Calendar() {
     const authToken = localStorage.getItem('authToken');
 
@@ -94,7 +96,9 @@ export default function Calendar() {
                             {bookings.length > 0 ? (
                                 bookings.map(booking => (
                                     <div className='p-2'>
-                                        <Booking time={format(booking[1].start_time, 'p')} staff_member={booking[1].staff_member.first_name} />
+                                        <UserProvider>
+                                            <Booking time={format(booking[1].start_time, 'p')} staff_member={booking[1].staff_member.first_name} bookingId={booking[1].id} />
+                                        </UserProvider>
                                     </div>
                                 ))) : (<p className='text-violet-700'>No bookings for this day</p>)
                             }
