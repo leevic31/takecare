@@ -4,7 +4,24 @@ FactoryBot.define do
         association :availability_block
         association :service
         available { true }
-        start_time { Faker::Time.between_dates(from: Date.today, to: Date.today + 1, period: :morning) }
-        end_time { Faker::Time.between_dates(from: Date.today, to: Date.today + 1, period: :afternoon) }
+    
+        trait :morning do
+            start_time { "2024-09-16 09:00:00" }
+            end_time { "2024-09-16 10:00:00" }
+        end
+
+        trait :afternoon do
+            start_time { "2024-09-16 14:00:00" }
+            end_time { "2024-09-16 15:00:00" }
+        end
+
+        trait :evening do
+            start_time { "2024-09-16 18:00:00" }
+            end_time { "2024-09-16 19:00:00" }
+        end
+
+        trait :unavailable do
+            available { false }
+        end
     end
 end

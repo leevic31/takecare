@@ -7,7 +7,7 @@ class Booking < ApplicationRecord
     belongs_to :staff_member, class_name: 'User', foreign_key: 'staff_member_id'
 
     # Validations
-    validates :start_time, :end_time, :available, presence: true
+    validates :start_time, :end_time, presence: true
     
     # Instance Methods
     def confirm_booking(client_id)
