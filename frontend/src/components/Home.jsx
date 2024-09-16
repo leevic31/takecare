@@ -41,25 +41,25 @@ export default function Home() {
     <>
         <Theme accentColor="violet">
           <div className="bg-violet-200 min-h-screen">
-              <Flex direction="row" justify="between" align="center">
+              <Flex direction="row" justify="between" align="center" className='px-4'>
                 <Box>
                   <Link to="/" className="text-3xl text-indigo-700 font-bold">Takecare</Link>
                 </Box>
                 <Box>
                   { currentUser ? (
                     <div>
-                    <Button onClick={handleLogout}>
-                      <PersonIcon />
-                      Logout
-                    </Button>
+                      <Button onClick={handleLogout}>
+                        <PersonIcon />
+                        Logout
+                      </Button>
                     </div>
                   ) : (
                     <Button>
-                    <PersonIcon />
-                    <Link to="/signin">
-                      Sign in
-                    </Link>
-                  </Button>
+                      <PersonIcon />
+                      <Link to="/signin">
+                        Sign in
+                      </Link>
+                    </Button>
                   )}
                 </Box>
               </Flex>
