@@ -52,7 +52,7 @@ export default function Booking({ time, staff_member, bookingId }) {
         <AlertDialog.Root>
           <AlertDialog.Trigger>
             <button className='rounded bg-violet-100 hover:bg-violet-200 px-5 py-1 w-full flex justify-between'>
-              <div className='text-violet-700'>{staff_member}</div>
+              <div className='text-violet-700 px-2'>{staff_member}</div>
               <div className='text-violet-700'>{time}</div>
             </button>
           </AlertDialog.Trigger>
