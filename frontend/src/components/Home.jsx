@@ -1,44 +1,67 @@
-import { Outlet, Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import Calendar from "./Calendar";
+
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
 export default function Home() {
-  // const [currentUser, setCurrentUser] = useState(null);
-  // const navigate = useNavigate();
+  const [currentUser, setCurrentUser] = useState(null);
+  const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const fetchCurrentUser = async () => {
-  //     const token = localStorage.getItem('authToken');
-  //     const url = "http://localhost:3000/users/me"
+  useEffect(() => {
+    const fetchCurrentUser = async () => {
+      const token = localStorage.getItem('authToken');
+      const url = "http://localhost:3000/users/me"
       
-  //     if (token) {
-  //       try {
-  //         const response = await axios.get(url, {
-  //           headers: {
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //         });
-  //         setCurrentUser(response.data);        
-  //       } catch (error) {
-  //         console.error('Error fetching current user:', error);
-  //       }
-  //     }
-  //   };
+      if (token) {
+        try {
+          const response = await axios.get(url, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          setCurrentUser(response.data);        
+        } catch (error) {
+          console.error('Error fetching current user:', error);
+        }
+      }
+    };
 
-  //   fetchCurrentUser();
-  // }, []);
+    fetchCurrentUser();
+  }, []);
 
-  // const handleLogout = () => {
-  //   localStorage.removeItem('authToken');
-  //   setCurrentUser(null);
-  //   navigate('/signin');
-  // }
+  const handleLogout = () => {
+    localStorage.removeItem('authToken');
+    setCurrentUser(null);
+    navigate('/signin');
+  }
+
+  const handleSignIn = () => {
+    navigate('/signin')
+  }
 
   return (
     <>
-      <Button variant="contained">Hello world</Button>
+
+      {/* <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static">
+          <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Typography variant="h6" component="div">
+              Takecare
+            </Typography>
+            { currentUser ? (
+              <Button color="inherit">Logout</Button>
+              ) : (
+              <Button color="inherit" onClick={handleSignIn}>Login</Button>
+            )}
+          </Toolbar>
+        </AppBar>
+      </Box> */}
 
         {/* <Theme accentColor="violet">
           <div className="bg-violet-200 min-h-screen">
