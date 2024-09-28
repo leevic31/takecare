@@ -11,6 +11,7 @@ import Organization, { organizationLoader } from './components/Organization';
 import Organizations from './components/Organizations';
 import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
+import User from "./components/User"
 
 function App() {
   const router = createBrowserRouter(
@@ -35,6 +36,7 @@ function App() {
           element={<SignUp />}
         />
         <Route path="signin" element={<SignIn />} />
+        <Route path="user/bookings" element={<User />} />
       </Route>
     )
   )

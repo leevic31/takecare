@@ -1,5 +1,9 @@
 {
   "dependencies": {
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@heroicons/react": "^2.1.5",
+    "@mui/material": "^6.1.1",
     "@radix-ui/react-alert-dialog": "^1.1.1",
     "date-fns": "^3.6.0"
   }

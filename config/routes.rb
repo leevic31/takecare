@@ -34,4 +34,6 @@ Rails.application.routes.draw do
   end
   
   resources :reschedule_bookings, only: [:create]
+
+  get '/user/bookings', to: 'user_bookings#index'
 end

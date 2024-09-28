@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { Link, useNavigate, Outlet } from "react-router-dom";
-import { Text, TextField, Button, Theme, Box } from '@radix-ui/themes';
+import { Link, useNavigate } from "react-router-dom";
+import { Text, TextField, Theme, Box, Flex } from '@radix-ui/themes';
 import { useState } from "react";
 
 export default function SignIn() {
@@ -21,7 +21,7 @@ export default function SignIn() {
             console.log('User signed-in:', response.data);            
             const token = response.data.token
             localStorage.setItem('authToken', token);
-            navigate("/")
+            navigate("/user/bookings")
         } catch (error) {
             console.log('Signup error:', error);
         }
@@ -29,36 +29,42 @@ export default function SignIn() {
     
     return (
         <>
-            <Theme appearance="dark" accentColor="violet">
-                <Link to="/" className="text-3xl text-indigo-700 font-bold absolute left-0 top-0">Takecare</Link>
-
-                <Text size="9">Sign in</Text>
-                <Box maxWidth="200px">
-                    <form onSubmit={handleSubmit}>
-                        <label>
-                            <Text>Email</Text>
-                            <TextField.Root 
-                                type="email"
-                                name="email"
-                                id="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                            />
-                            <Text>Password</Text>
-                            <TextField.Root
-                                type="password"
-                                name="password"
-                                id="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                            />
-                        </label>
-                        <br></br>
-                        <Button>Sign in</Button>
-                    </form>
-                    <br></br>
-                    <Link to="/signup">Sign up</Link>
-                </Box>
+            <Theme accentColor="violet">
+                <div className="bg-violet-200 min-h-screen">
+                    <Link to="/" className="text-3xl text-indigo-700 font-bold absolute left-0 top-0">Takecare</Link>
+                    <Text size="9" color='violet'>Sign in</Text>
+                    <Flex justify='center' pt='9'>
+                        <Box maxWidth="200px">
+                            <form onSubmit={handleSubmit}>
+                                <label>
+                                    <TextField.Root 
+                                        type="email"
+                                        name="email"
+                                        id="email"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        placeholder='example@email.com'
+                                    />
+                                    <br></br>
+                                    <TextField.Root
+                                        type="password"
+                                        name="password"
+                                        id="password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        placeholder='password'
+                                    />
+                                </label>
+                                <br></br>
+                                <button className='rounded bg-violet-700 text-violet-200'>
+                                    Sign in
+                                </button>
+                            </form>
+                            <br></br>
+                            <Link to="/signup">Sign up</Link>
+                        </Box>
+                    </Flex>
+                </div>
             </Theme>
         </>
     )

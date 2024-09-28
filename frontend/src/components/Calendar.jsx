@@ -55,44 +55,42 @@ export default function Calendar() {
     return (
         <>
             <div className="flex justify-center space-x-4">
-                    <div className="w-full max-w-md h-80 mt-4 p-4 bg-violet-50 shadow-lg rounded-lg mr-4">
-                        <header className="flex items-center justify-between mb-4">
-                            <button 
-                                onClick={handlePreviousMonth} 
-                                className="p-2 text-violet-700 hover:bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center"
-                            >
-                                <ChevronLeftIcon />
-                            </button>
-                            <h1 className="text-xl font-semibold text-violet-700">{format(currentMonth, 'MMMM yyyy')}</h1>
-                            <button 
-                                onClick={handleNextMonth} 
-                                className="p-2 text-violet-700 hover:bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center"
-                            >
-                                <ChevronRightIcon />
-                            </button>
-                        </header>
-                        <div className="grid grid-cols-7 gap-1 text-center mb-4">
-                            {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-                                <div key={day} className="font-semibold text-violet-700">{day}</div>
-                            ))}
-                        </div>
-                        <div className="grid grid-cols-7 gap-1 text-center">
-                            {daysInCalendar.map(day => (
-                                <div
-                                    key={day}
-                                    className={`p-2 cursor-pointer rounded-full w-8 h-8 flex items-center justify-center ml-3 ${isToday(day) ? 'bg-violet-200' : ''} ${selectedDate && day.toDateString() === selectedDate.toDateString() ? 'bg-amber-300 text-violet-500' : 'text-violet-500'} hover:bg-violet-200`}
-                                    onClick={() => handleDayClick(day)}
-                                >
-                                    {format(day, 'd')}
-                                </div>
-                            ))}
-                        </div>
+                <div className="w-full max-w-md h-80 mt-4 p-4 bg-violet-50 shadow-lg rounded-lg mr-4">
+                    <header className="flex items-center justify-between mb-4">
+                        <button 
+                            onClick={handlePreviousMonth} 
+                            className="p-2 text-violet-700 hover:bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center"
+                        >
+                            <ChevronLeftIcon />
+                        </button>
+                        <h1 className="text-xl font-semibold text-violet-700">{format(currentMonth, 'MMMM yyyy')}</h1>
+                        <button 
+                            onClick={handleNextMonth} 
+                            className="p-2 text-violet-700 hover:bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center"
+                        >
+                            <ChevronRightIcon />
+                        </button>
+                    </header>
+                    <div className="grid grid-cols-7 gap-1 text-center mb-4">
+                        {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
+                            <div key={day} className="font-semibold text-violet-700">{day}</div>
+                        ))}
                     </div>
-
+                    <div className="grid grid-cols-7 gap-1 text-center">
+                        {daysInCalendar.map(day => (
+                            <div
+                                key={day}
+                                className={`p-2 cursor-pointer rounded-full w-8 h-8 flex items-center justify-center ml-3 ${isToday(day) ? 'bg-violet-200' : ''} ${selectedDate && day.toDateString() === selectedDate.toDateString() ? 'bg-amber-300 text-violet-500' : 'text-violet-500'} hover:bg-violet-200`}
+                                onClick={() => handleDayClick(day)}
+                            >
+                                {format(day, 'd')}
+                            </div>
+                        ))}
+                    </div>
+                </div>
                     {selectedDate && (
                         <div className="mt-4 p-4 bg-violet-50 border border-gray-300 rounded-lg">
                             <p className="text-violet-700">{format(selectedDate, 'EEEE, MMMM d, yyyy')}</p>
-
                             {bookings.length > 0 ? (
                                 bookings.map(booking => (
                                     <div className='p-2'>

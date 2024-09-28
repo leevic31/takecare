@@ -4,7 +4,10 @@ class User < ApplicationRecord
   rolify
 
   # Associations
-  has_many :bookings
+
+  # Can access bookings for a client or staff member with user.client_bookings user.staff_bookings
+  has_many :client_bookings, class_name: 'Booking', foreign_key: 'client_id'
+  has_many :staff_bookings, class_name: 'Booking', foreign_key: 'staff_member_id'
 
   # Callbacks
   after_create :assign_default_role
