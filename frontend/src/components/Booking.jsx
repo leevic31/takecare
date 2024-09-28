@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Box, Text, Flex } from '@radix-ui/themes';
-import * as AlertDialog from '@radix-ui/react-alert-dialog';
 import axios from 'axios'
 
 import { useUser } from '../contexts/UserContext';
@@ -48,7 +46,7 @@ export default function Booking({ time, staff_member, bookingId }) {
 
   return (
     <>
-      <Box>        
+      {/* <Box>        
         <AlertDialog.Root>
           <AlertDialog.Trigger>
             <button className='rounded bg-violet-100 hover:bg-violet-200 px-5 py-1 w-full flex justify-between'>
@@ -90,7 +88,7 @@ export default function Booking({ time, staff_member, bookingId }) {
           </AlertDialog.Portal>
 
         </AlertDialog.Root>
-      </Box>
+      </Box> */}
     </>
   )
 }

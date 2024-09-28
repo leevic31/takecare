@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { Link, useNavigate } from "react-router-dom";
-import { Text, TextField, Theme, Box, Flex } from '@radix-ui/themes';
 import { useState } from "react";
 
 export default function SignIn() {
@@ -29,7 +28,7 @@ export default function SignIn() {
     
     return (
         <>
-            <Theme accentColor="violet">
+            {/* <Theme accentColor="violet">
                 <div className="bg-violet-200 min-h-screen">
                     <Link to="/" className="text-3xl text-indigo-700 font-bold absolute left-0 top-0">Takecare</Link>
                     <Text size="9" color='violet'>Sign in</Text>
@@ -65,7 +64,7 @@ export default function SignIn() {
                         </Box>
                     </Flex>
                 </div>
-            </Theme>
+            </Theme> */}
         </>
     )
 }

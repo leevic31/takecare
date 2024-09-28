@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { format, startOfMonth, endOfMonth, addMonths, subMonths, eachDayOfInterval, isToday, startOfWeek, endOfWeek } from 'date-fns';
 import Booking from "./Booking";
 import axios from 'axios';
-import { ChevronLeftIcon, ChevronRightIcon } from '@radix-ui/react-icons';
+import Button from '@mui/material/Button';
 
 import { UserProvider } from '../contexts/UserContext';
 
@@ -54,21 +54,19 @@ export default function Calendar() {
     
     return (
         <>
-            <div className="flex justify-center space-x-4">
+            {/* <div className="flex justify-center space-x-4">
                 <div className="w-full max-w-md h-80 mt-4 p-4 bg-violet-50 shadow-lg rounded-lg mr-4">
                     <header className="flex items-center justify-between mb-4">
                         <button 
                             onClick={handlePreviousMonth} 
                             className="p-2 text-violet-700 hover:bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center"
                         >
-                            <ChevronLeftIcon />
                         </button>
                         <h1 className="text-xl font-semibold text-violet-700">{format(currentMonth, 'MMMM yyyy')}</h1>
                         <button 
                             onClick={handleNextMonth} 
                             className="p-2 text-violet-700 hover:bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center"
                         >
-                            <ChevronRightIcon />
                         </button>
                     </header>
                     <div className="grid grid-cols-7 gap-1 text-center mb-4">
@@ -102,7 +100,7 @@ export default function Calendar() {
                             }
                         </div>
                     )}
-            </div>
+            </div> */}
         </>
     );
 };

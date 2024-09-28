@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import OptionsButton from './OptionsButton';
-import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
-import { Menu, MenuButton, MenuItem, MenuItems, Button } from '@headlessui/react'
-
 
 export default function User() {
   const authToken = localStorage.getItem('authToken');

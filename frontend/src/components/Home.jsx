@@ -1,45 +1,46 @@
 import { Outlet, Link, useNavigate } from "react-router-dom";
-import { Button, Theme, Flex, Box } from '@radix-ui/themes';
-import { PersonIcon } from '@radix-ui/react-icons';
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import Calendar from "./Calendar";
+import Button from '@mui/material/Button';
 
 export default function Home() {
-  const [currentUser, setCurrentUser] = useState(null);
-  const navigate = useNavigate();
+  // const [currentUser, setCurrentUser] = useState(null);
+  // const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchCurrentUser = async () => {
-      const token = localStorage.getItem('authToken');
-      const url = "http://localhost:3000/users/me"
+  // useEffect(() => {
+  //   const fetchCurrentUser = async () => {
+  //     const token = localStorage.getItem('authToken');
+  //     const url = "http://localhost:3000/users/me"
       
-      if (token) {
-        try {
-          const response = await axios.get(url, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-          setCurrentUser(response.data);        
-        } catch (error) {
-          console.error('Error fetching current user:', error);
-        }
-      }
-    };
+  //     if (token) {
+  //       try {
+  //         const response = await axios.get(url, {
+  //           headers: {
+  //             Authorization: `Bearer ${token}`,
+  //           },
+  //         });
+  //         setCurrentUser(response.data);        
+  //       } catch (error) {
+  //         console.error('Error fetching current user:', error);
+  //       }
+  //     }
+  //   };
 
-    fetchCurrentUser();
-  }, []);
+  //   fetchCurrentUser();
+  // }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem('authToken');
-    setCurrentUser(null);
-    navigate('/signin');
-  }
+  // const handleLogout = () => {
+  //   localStorage.removeItem('authToken');
+  //   setCurrentUser(null);
+  //   navigate('/signin');
+  // }
 
   return (
     <>
-        <Theme accentColor="violet">
+      <Button variant="contained">Hello world</Button>
+
+        {/* <Theme accentColor="violet">
           <div className="bg-violet-200 min-h-screen">
               <Flex direction="row" justify="between" align="center" className='px-4'>
                 <Box>
@@ -49,13 +50,11 @@ export default function Home() {
                   { currentUser ? (
                     <div>
                       <Button onClick={handleLogout}>
-                        <PersonIcon />
                         Logout
                       </Button>
                     </div>
                   ) : (
                     <Button>
-                      <PersonIcon />
                       <Link to="/signin">
                         Sign in
                       </Link>
@@ -80,7 +79,7 @@ export default function Home() {
               < Calendar />
 
           </div>
-        </Theme>
+        </Theme> */}
     </>
   )
 }
