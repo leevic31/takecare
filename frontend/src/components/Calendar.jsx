@@ -6,6 +6,10 @@ import Button from '@mui/material/Button';
 
 import { UserProvider } from '../contexts/UserContext';
 
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
+
 export default function Calendar() {
     const authToken = localStorage.getItem('authToken');
 
@@ -54,6 +58,11 @@ export default function Calendar() {
     
     return (
         <>
+
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DateCalendar />
+            </LocalizationProvider>
+            
             {/* <div className="flex justify-center space-x-4">
                 <div className="w-full max-w-md h-80 mt-4 p-4 bg-violet-50 shadow-lg rounded-lg mr-4">
                     <header className="flex items-center justify-between mb-4">

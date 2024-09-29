@@ -6,6 +6,7 @@ import Organizations from './components/Organizations';
 import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
 import User from "./components/User"
+import Calendar from "./components/Calendar"
 
 import HeaderBar from "./components/HeaderBar";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -20,7 +21,11 @@ function App() {
         {
           path: "signin",
           element: <SignIn/>,
-        }
+        },
+        {
+          path: 'calendar',
+          element: <Calendar/>,
+        },
       ],
     },
   ]);
