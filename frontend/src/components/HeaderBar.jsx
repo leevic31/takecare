@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 import axios from 'axios';
 
 export default function HeaderBar() {
-  const [currentUser, setCurrentUser] = useState();
+  const [currentUser, setCurrentUser] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export default function HeaderBar() {
     };
 
     fetchCurrentUser();
-  }, [setCurrentUser]);
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem('authToken');
