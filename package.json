@@ -5,6 +5,7 @@
     "@heroicons/react": "^2.1.5",
     "@mui/icons-material": "^6.1.1",
     "@mui/material": "^6.1.1",
+    "@mui/x-date-pickers": "^7.18.0",
     "@radix-ui/react-alert-dialog": "^1.1.1",
     "@toolpad/core": "^0.7.0",
     "date-fns": "^3.6.0"
