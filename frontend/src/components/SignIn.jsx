@@ -19,8 +19,8 @@ export default function SignIn() {
           password: password,
         });
         console.log('User signed-in:', response.data)
-        const { token } = response.data;
-        localStorage.setItem('token', token);
+        const token = response.data.token;
+        localStorage.setItem('authToken', token);
         navigate('/');
       } catch(error) {
         if (error.response) {

@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 import axios from 'axios';
 
 export default function HeaderBar() {
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,7 +26,7 @@ export default function HeaderBar() {
               Authorization: `Bearer ${token}`,
             },
           });
-          setCurrentUser(response.data);        
+          setCurrentUser(response.data);
         } catch (error) {
           console.error('Error fetching current user:', error);
         }
@@ -34,7 +34,7 @@ export default function HeaderBar() {
     };
 
     fetchCurrentUser();
-  }, []);
+  }, [setCurrentUser]);
 
   const handleLogout = () => {
     localStorage.removeItem('authToken');
@@ -55,7 +55,7 @@ export default function HeaderBar() {
                 Takecare
               </Typography>
               { currentUser ? (
-                <Button color="inherit">Logout</Button>
+                <Button color="inherit" onClick={handleLogout}>Logout</Button>
                 ) : (
                 <Button color="inherit" onClick={handleSignIn}>Login</Button>
               )}

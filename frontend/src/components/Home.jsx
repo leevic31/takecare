@@ -35,15 +35,15 @@ export default function Home() {
     fetchCurrentUser();
   }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem('authToken');
-    setCurrentUser(null);
-    navigate('/signin');
-  }
+  // const handleLogout = () => {
+  //   localStorage.removeItem('authToken');
+  //   setCurrentUser(null);
+  //   navigate('/signin');
+  // }
 
-  const handleSignIn = () => {
-    navigate('/signin')
-  }
+  // const handleSignIn = () => {
+  //   navigate('/signin')
+  // }
 
   return (
     <>
