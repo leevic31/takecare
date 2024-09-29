@@ -8,6 +8,7 @@
     "@mui/x-date-pickers": "^7.18.0",
     "@radix-ui/react-alert-dialog": "^1.1.1",
     "@toolpad/core": "^0.7.0",
-    "date-fns": "^3.6.0"
+    "date-fns": "^3.6.0",
+    "dayjs": "^1.11.13"
   }
 }
