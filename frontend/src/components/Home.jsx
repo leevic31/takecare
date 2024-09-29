@@ -10,99 +10,13 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
 export default function Home() {
-  const [currentUser, setCurrentUser] = useState(null);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const fetchCurrentUser = async () => {
-      const token = localStorage.getItem('authToken');
-      const url = "http://localhost:3000/users/me"
-      
-      if (token) {
-        try {
-          const response = await axios.get(url, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-          setCurrentUser(response.data);        
-        } catch (error) {
-          console.error('Error fetching current user:', error);
-        }
-      }
-    };
-
-    fetchCurrentUser();
-  }, []);
-
-  // const handleLogout = () => {
-  //   localStorage.removeItem('authToken');
-  //   setCurrentUser(null);
-  //   navigate('/signin');
-  // }
-
-  // const handleSignIn = () => {
-  //   navigate('/signin')
-  // }
+  
 
   return (
     <>
 
-      {/* <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
-          <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Typography variant="h6" component="div">
-              Takecare
-            </Typography>
-            { currentUser ? (
-              <Button color="inherit">Logout</Button>
-              ) : (
-              <Button color="inherit" onClick={handleSignIn}>Login</Button>
-            )}
-          </Toolbar>
-        </AppBar>
-      </Box> */}
 
-        {/* <Theme accentColor="violet">
-          <div className="bg-violet-200 min-h-screen">
-              <Flex direction="row" justify="between" align="center" className='px-4'>
-                <Box>
-                  <Link to="/" className="text-3xl text-indigo-700 font-bold">Takecare</Link>
-                </Box>
-                <Box>
-                  { currentUser ? (
-                    <div>
-                      <Button onClick={handleLogout}>
-                        Logout
-                      </Button>
-                    </div>
-                  ) : (
-                    <Button>
-                      <Link to="/signin">
-                        Sign in
-                      </Link>
-                    </Button>
-                  )}
-                </Box>
-              </Flex>
-
-              <Outlet />
-
-              <div>
-                {currentUser ? (
-                  <div>
-                    <h2>Welcome, {currentUser.email}</h2>
-                    <Link to="/organizations" className="text-3xl text-indigo-700 font-bold">Organizations</Link>
-                  </div>
-                ) : (
-                  <p>Loading...</p>
-                )}
-              </div>
-
-              < Calendar />
-
-          </div>
-        </Theme> */}
+       
     </>
   )
 }
