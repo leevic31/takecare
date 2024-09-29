@@ -9,60 +9,64 @@ import { UserProvider } from '../contexts/UserContext';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
+import dayjs from 'dayjs';
 
 export default function Calendar() {
-    const authToken = localStorage.getItem('authToken');
+    // const authToken = localStorage.getItem('authToken');
 
-    const [currentMonth, setCurrentMonth] = useState(new Date());
-    const [selectedDate, setSelectedDate] = useState(null);
+    // const [currentMonth, setCurrentMonth] = useState(new Date());
+    // const [selectedDate, setSelectedDate] = useState(null);
 
-    const handlePreviousMonth = () => {
-        setCurrentMonth(subMonths(currentMonth, 1));
-    };
+    // const handlePreviousMonth = () => {
+    //     setCurrentMonth(subMonths(currentMonth, 1));
+    // };
 
-    const handleNextMonth = () => {
-        setCurrentMonth(addMonths(currentMonth, 1));
-    };
+    // const handleNextMonth = () => {
+    //     setCurrentMonth(addMonths(currentMonth, 1));
+    // };
 
-    const handleDayClick = (date) => {
-        setSelectedDate(date);
-        getBookings(date);
-    };
+    // const handleDayClick = (date) => {
+    //     setSelectedDate(date);
+    //     getBookings(date);
+    // };
 
-    const monthStart = startOfMonth(currentMonth);
-    const monthEnd = endOfMonth(currentMonth);
+    // const monthStart = startOfMonth(currentMonth);
+    // const monthEnd = endOfMonth(currentMonth);
 
-    const startOfCalendar = startOfWeek(monthStart);
-    const endOfCalendar = endOfWeek(monthEnd);
-    const daysInCalendar = eachDayOfInterval({ start: startOfCalendar, end: endOfCalendar });
+    // const startOfCalendar = startOfWeek(monthStart);
+    // const endOfCalendar = endOfWeek(monthEnd);
+    // const daysInCalendar = eachDayOfInterval({ start: startOfCalendar, end: endOfCalendar });
 
-    const [bookings, setBookings] = useState([]);
+    // const [bookings, setBookings] = useState([]);
 
-    const getBookings = (date) => {
-      const url = `http://localhost:3000/bookings_by_date/${format(date,'yyyy-L-d')}`
+    // const getBookings = (date) => {
+    //   const url = `http://localhost:3000/bookings_by_date/${format(date,'yyyy-L-d')}`
   
-      axios.get(url, {
-        headers: {
-          Authorization: `Bearer ${authToken}`
-        }
-      }).then(response => {
-        setBookings(Object.entries(response.data));
-      });
-    }
+    //   axios.get(url, {
+    //     headers: {
+    //       Authorization: `Bearer ${authToken}`
+    //     }
+    //   }).then(response => {
+    //     setBookings(Object.entries(response.data));
+    //   });
+    // }
 
-    useEffect(() => {
-        if (selectedDate) {
-            getBookings(selectedDate);
-        }
-    }, [selectedDate]);
-    
+    // useEffect(() => {
+    //     if (selectedDate) {
+    //         getBookings(selectedDate);
+    //     }
+    // }, [selectedDate]);
+
+    const [value, setValue] = useState(dayjs('2022-04-17'));
+
     return (
         <>
 
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DateCalendar />
+                <DateCalendar value={value} onChange={(newValue) => setValue(newValue)} />
             </LocalizationProvider>
             
+
             {/* <div className="flex justify-center space-x-4">
                 <div className="w-full max-w-md h-80 mt-4 p-4 bg-violet-50 shadow-lg rounded-lg mr-4">
                     <header className="flex items-center justify-between mb-4">
