@@ -10,6 +10,7 @@ import Calendar from "./components/Calendar"
 
 import HeaderBar from "./components/HeaderBar";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { UserProvider } from './contexts/UserContext';
 
 function App() {
 
@@ -32,9 +33,11 @@ function App() {
 
   return (
     <>
-      <div className="App">
-          <RouterProvider router={router} />
-      </div>
+      <UserProvider>
+        <div className="App">
+            <RouterProvider router={router} />
+        </div>
+      </UserProvider>
     </>
   );
 }
