@@ -1,18 +1,17 @@
 import React from 'react'
-
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-
-import {Outlet, useNavigate} from 'react-router-dom'
+import { Outlet, useNavigate, useLocation } from 'react-router-dom'
 import { useEffect, useState } from "react";
 import axios from 'axios';
 
 export default function HeaderBar() {
   const [currentUser, setCurrentUser] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const fetchCurrentUser = async () => {
@@ -34,7 +33,7 @@ export default function HeaderBar() {
     };
 
     fetchCurrentUser();
-  }, []);
+  }, [location]);
 
   const handleLogout = () => {
     localStorage.removeItem('authToken');
