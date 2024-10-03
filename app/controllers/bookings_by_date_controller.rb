@@ -6,7 +6,16 @@ class BookingsByDateController < ApplicationController
 
     begin
       bookings = BookingFetcher.new(date: date).call
-      render json: bookings.as_json(include: {staff_member: { only: :first_name}})
+      response = bookings.map do |booking|
+        { 
+          id: booking.id,
+          start_time: booking.start_time,
+          staff_member: booking.staff_member.first_name
+        }
+      end
+
+      render json: response
+      
     rescue ArgumentError => e
       render json: { error: e.message }, status: :bad_request
     end

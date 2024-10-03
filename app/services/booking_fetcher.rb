@@ -13,5 +13,6 @@ class BookingFetcher
     Booking.includes(:staff_member)
       .where(start_time: @date.beginning_of_day..@date.end_of_day, available: true)
       .order(:start_time)
+      .select(:id, :start_time, :staff_member_id)
   end
 end

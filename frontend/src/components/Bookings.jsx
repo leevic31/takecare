@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import axios from 'axios';
 import dayjs from 'dayjs';
@@ -18,7 +17,7 @@ export default function Bookings({date}) {
           Authorization: `Bearer ${user?.token}`
         }
       }).then(response => {
-        setBookings(Object.entries(response.data));
+        setBookings(response.data);
       });
     }
 
@@ -43,13 +42,10 @@ export default function Bookings({date}) {
                 }}
             >
                 { bookings.length > 0 ? (
-                    bookings.map(booking => (
-                        <Paper elevation={3}>
-                            <Booking time={dayjs(booking[1].start_time).format('LT')} staff_member={booking[1].staff_member.first_name} bookingId={booking[1].id} />
-                        </Paper>
+                    bookings.map((booking, index) => (
+                        <Booking time={dayjs(booking.start_time).format('LT')} staff_member={booking.staff_member} bookingId={booking.id} />
                     ))) : (<p>No bookings</p>)
                 }
-                
             </Box>
         </>
     )
