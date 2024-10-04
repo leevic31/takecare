@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import PropTypes from 'prop-types'
 import axios from 'axios'
-
 import { useUser } from '../contexts/UserContext';
 import Button from '@mui/material/Button';
-
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 
 export default function Booking({ time, staff_member, bookingId }) {
   // const [isLoading, setIsLoading] = useState(false); // State to manage loading status
@@ -46,18 +46,49 @@ export default function Booking({ time, staff_member, bookingId }) {
   //   return <p>Loading...</p>;
   // }
 
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  }
+
+  const handleClose = () => {
+    setOpen(false);
+  }
+
   return (
     <>
-      <Button variant="outlined">
-        {time}
-        {staff_member}
+      <Button variant="outlined" onClick={handleOpen}>
+          <Stack spacing={1}>
+            <div>{time}</div>
+            <div>{staff_member}</div>
+          </Stack>
       </Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+      >
+        <Box sx={{ 
+          position: 'absolute', 
+          top: '20%', 
+          left: '35%', 
+          bgcolor: 'background.paper', 
+          width: 400,  
+          p: 10
+        }}>
+          <Stack spacing={1}>
+            <div>Would you like to confirm the following booking?</div>
+            <div>{time}</div>
+            <div>{staff_member}</div>
+          </Stack>
+          <Button variant='contained' sx={{m:2}}>
+            confirm
+          </Button>
+          <Button variant='contained' onClick={handleClose}>
+            cancel
+          </Button>
+        </Box>
+      </Modal>
     </>
   )
 }
-
-Booking.propTypes = {
-  time: PropTypes.string.isRequired,
-  staff_member: PropTypes.string.isRequired,
-  bookingId: PropTypes.number.isRequired,
-};
