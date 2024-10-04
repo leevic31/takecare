@@ -7,45 +7,7 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 
 export default function Booking({ time, staff_member, bookingId }) {
-  // const [isLoading, setIsLoading] = useState(false); // State to manage loading status
-  // const [error, setError] = useState(null); // State to manage errors
-
-  // const token = localStorage.getItem('authToken');
-  // const { user, loading } = useUser();
-
-  // const handleConfirm = async () => {
-  //   setIsLoading(true); // Set loading state to true
-  //   setError(null); // Clear previous errors
-
-  //   try {
-  //     if (!user) {
-  //       throw new Error('User not logged in');
-  //     }
-
-  //     const response = await axios.post('http://localhost:3000/booking_managements', {
-  //       booking_management: {
-  //         booking_id: bookingId,
-  //         client_id: user.id,
-  //       },
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     });
-
-  //     console.log('Booking confirmed:', response.data);
-
-  //   } catch (err) {
-  //     console.error('Error confirming booking', err);
-  //     setError('Unable to confirm booking'); // Set error state
-  //   } finally {
-  //     setIsLoading(false); // Set loading state to false
-  //   }
-  // }
-
-  // if (loading) {
-  //   return <p>Loading...</p>;
-  // }
-
+  const { user, loading } = useUser();
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -53,6 +15,24 @@ export default function Booking({ time, staff_member, bookingId }) {
   }
 
   const handleClose = () => {
+    setOpen(false);
+  }
+
+  const handleConfirm = () => {
+    const url = 'http://localhost:3000/booking_managements'
+
+    axios.post(url, {
+      booking_management: {
+          booking_id: bookingId,
+          client_id: user.id,
+      },
+      headers: {
+        Authorization: `Bearer ${user?.token}`
+      }
+    }).then(response => {
+      console.log('Booking confirmed:', response.data);
+    });
+
     setOpen(false);
   }
 
@@ -81,7 +61,7 @@ export default function Booking({ time, staff_member, bookingId }) {
             <div>{time}</div>
             <div>{staff_member}</div>
           </Stack>
-          <Button variant='contained' sx={{m:2}}>
+          <Button variant='contained' sx={{m:2}} onClick={handleConfirm}>
             confirm
           </Button>
           <Button variant='contained' onClick={handleClose}>

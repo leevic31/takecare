@@ -25,8 +25,6 @@ export default function Bookings({date}) {
         getBookings(date);
     }, [date]);
 
-    console.log(bookings)
-
     return (
         <>
             <Box
